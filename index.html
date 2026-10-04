@@ -61,24 +61,25 @@
             letter-spacing: normal;
         }
 
-        h1 { font-size: var(--text-display); line-height: 0.9; margin-bottom: var(--spacing-24); max-width: 900px; }
+        h1 { font-size: var(--text-display); line-height: 0.9; margin-bottom: var(--spacing-24); max-width: 100%; }
         h2 { font-size: var(--text-heading); line-height: 0.9; margin: var(--spacing-68) 0 var(--spacing-41); padding-bottom: var(--spacing-18); border-bottom: 1px dashed var(--color-cork-border); scroll-margin-top: 80px; }
         h3 { font-size: var(--text-heading-sm); line-height: 1.09; margin: var(--spacing-41) 0 var(--spacing-18); color: var(--color-warm-cream); scroll-margin-top: 80px; }
         h4 { font-size: var(--text-subheading); line-height: 1; margin: var(--spacing-18) 0 var(--spacing-12); color: var(--color-ember-accent); }
 
-        p { font-weight: 400; text-transform: none; margin-bottom: var(--spacing-18); max-width: 800px; }
+        p { font-weight: 400; text-transform: none; margin-bottom: var(--spacing-18); max-width: 100%; text-align: justify; }
+        
         ul { list-style: none; margin-bottom: var(--spacing-18); }
-        li { margin-bottom: var(--spacing-12); padding-left: var(--spacing-18); position: relative; }
+        li { margin-bottom: var(--spacing-12); padding-left: 28px; position: relative; }
         li::before { content: '—'; position: absolute; left: 0; color: var(--color-driftwood); }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 var(--spacing-24); }
 
         /* Navbar */
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(16, 9, 4, 0.8); backdrop-filter: blur(10px); padding: var(--spacing-18) var(--spacing-24); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-cork-border); }
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(16, 9, 4, 0.9); backdrop-filter: blur(12px); padding: var(--spacing-18) var(--spacing-24); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-cork-border); }
         .nav-logo { font-size: 14px; font-weight: 500; color: var(--color-warm-cream); text-decoration: none; }
-        .nav-links { display: flex; gap: var(--spacing-24); }
-        .nav-links a { color: var(--color-warm-cream); text-decoration: none; font-size: 12px; font-weight: 500; text-transform: uppercase; transition: color 0.2s; border-bottom: 1px dashed transparent; padding-bottom: 2px; }
-        .nav-links a:hover { color: var(--color-ember-accent); border-bottom-color: var(--color-ember-accent); }
+        .nav-links { display: flex; gap: var(--spacing-24); flex-wrap: wrap; }
+        .nav-links a { color: var(--color-warm-cream); text-decoration: none; font-size: 12px; font-weight: 500; text-transform: uppercase; transition: color 0.2s; border-bottom: 1px dashed transparent; padding-bottom: 2px; opacity: 0.7; }
+        .nav-links a:hover, .nav-links a.active { color: var(--color-ember-accent); border-bottom-color: var(--color-ember-accent); opacity: 1; }
 
         /* Hero */
         header.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--spacing-24); }
@@ -89,19 +90,35 @@
         .card.poisson { border-left: 4px solid var(--color-ember-accent); }
         .card.continuous { border-left: 4px solid var(--color-warm-cream); }
 
-        /* Formula & Examples */
-        .formula-block { background: var(--color-walnut-shadow); border: 1px dashed var(--color-cork-border); border-radius: var(--radius-cards); padding: var(--spacing-24); margin: var(--spacing-24) 0; text-align: center; overflow-x: auto; color: var(--color-warm-cream); }
+        /* Formula & Examples - Responsive Math */
+        .formula-block { background: var(--color-walnut-shadow); border: 1px dashed var(--color-cork-border); border-radius: var(--radius-cards); padding: var(--spacing-24); margin: var(--spacing-24) 0; text-align: center; overflow-x: auto; -webkit-overflow-scrolling: touch; color: var(--color-warm-cream); }
         .katex { color: var(--color-warm-cream); }
+        .katex-display { margin: 0; }
+        
         .example-block { border-top: 1px dashed var(--color-cork-border); margin-top: var(--spacing-24); padding-top: var(--spacing-24); }
         .example-block h4 { color: var(--color-ember-accent); }
 
         /* Interactive */
         .interactive-box { background: var(--color-bark-brown); border-radius: var(--radius-cards); padding: var(--spacing-24); margin-top: var(--spacing-24); }
         .canvas-container { display: flex; flex-wrap: wrap; gap: var(--spacing-24); justify-content: center; margin-bottom: var(--spacing-24); }
-        canvas { background: var(--color-walnut-shadow); border-radius: var(--radius-cards); }
+        canvas { background: var(--color-walnut-shadow); border-radius: var(--radius-cards); max-width: 100%; height: auto; display: block; }
         .control-group { display: flex; align-items: center; gap: var(--spacing-18); flex-wrap: wrap; margin-bottom: var(--spacing-18); background: var(--color-walnut-shadow); padding: var(--spacing-18); border-radius: var(--radius-cards); }
         input[type="range"] { width: 100%; max-width: 200px; cursor: pointer; accent-color: var(--color-ember-accent); }
         .value-display { font-weight: 500; min-width: 40px; text-align: right; }
+
+        /* Tables */
+        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--color-cork-border); border-radius: var(--radius-cards); margin: var(--spacing-24) 0; position: relative; }
+        .scroll-hint { text-align: center; font-size: 12px; color: var(--color-driftwood); text-transform: uppercase; margin-bottom: var(--spacing-12); display: none; }
+        table.normal-table { width: 100%; border-collapse: collapse; background: var(--color-walnut-shadow); min-width: 600px; }
+        table.normal-table th, table.normal-table td { border: 1px solid var(--color-cork-border); padding: 6px 4px; text-align: center; font-size: 12px; color: var(--color-warm-cream); }
+        table.normal-table th { background: var(--color-bark-brown); font-weight: 500; }
+        table.normal-table tr:hover td { background: rgba(220, 80, 0, 0.1); }
+        table.normal-table td.selected-cell {
+            background: var(--color-ember-accent) !important;
+            color: var(--color-walnut-shadow) !important;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
         /* Buttons */
         .ghost-btn { background: transparent; border: 1px solid var(--color-warm-cream); color: var(--color-warm-cream); padding: 7.5px 24px; border-radius: var(--radius-outline); font-family: var(--font-halyard); font-weight: 500; font-size: 12px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; margin-top: var(--spacing-41); }
@@ -130,8 +147,11 @@
 
         @media (max-width: 768px) {
             h1 { font-size: 41px; } h2 { font-size: 31px; } p { font-size: 24px; }
-            .nav-links { display: none; } .container { padding: 0 12px; }
-            canvas { width: 100% !important; height: auto !important; }
+            .nav-links { gap: 12px; overflow-x: auto; white-space: nowrap; width: 100%; padding-bottom: 8px; } 
+            .nav-links::-webkit-scrollbar { height: 2px; }
+            .container { padding: 0 12px; }
+            .scroll-hint { display: block; }
+            .katex { font-size: 0.9em; }
         }
     </style>
 </head>
@@ -140,11 +160,13 @@
 <nav class="navbar">
     <a href="#" class="nav-logo">PROBABILIDAD</a>
     <div class="nav-links">
-        <a href="#discretas">Discretas</a>
-        <a href="#poisson">Poisson</a>
-        <a href="#continuas">Continuas</a>
-        <a href="#guia">Guía</a>
-        <a href="#ejercicios">Ejercicios</a>
+        <a href="#discretas" class="nav-link">Discretas</a>
+        <a href="#poisson" class="nav-link">Poisson</a>
+        <a href="#continuas" class="nav-link">Continuas</a>
+        <a href="#tabla-normal" class="nav-link">Tabla Z</a>
+        <a href="#propiedades-normal" class="nav-link">Propiedades</a>
+        <a href="#guia" class="nav-link">Guía</a>
+        <a href="#ejercicios" class="nav-link">Ejercicios</a>
     </div>
 </nav>
 
@@ -320,12 +342,16 @@
             <h3>Normal (La Campana de Gauss)</h3>
             <p>Es la más famosa. Representa cosas donde la mayoría está en el medio y los extremos son raros (ej. altura de personas, notas de un examen). La media ($\mu$) te dice dónde está el centro, y el desvío ($\sigma$) te dice qué tan "ancha" es la campana.</p>
             
+            <h4>Función de Densidad y Acumulada</h4>
+            <div class="formula-block">$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$ &nbsp;&nbsp; $F(x) = \int_{-\infty}^{x} f(t) dt$</div>
+            
             <h4>Propiedades de la Campana</h4>
             <ul>
+                <li>Dominio: $(-\infty, +\infty)$.</li>
                 <li>Simétrica respecto a la media $\mu$.</li>
-                <li>Tiene su máximo absoluto en $x = \mu$.</li>
+                <li>Máximo absoluto en $x = \mu$.</li>
                 <li>Puntos de inflexión en $\mu + \sigma$ y $\mu - \sigma$.</li>
-                <li>Asíntota al eje X (nunca lo toca).</li>
+                <li>Asíntota al eje X (nunca lo toca, el área total es 1).</li>
             </ul>
 
             <p>Para calcular probabilidades, siempre "estandarizamos" restando la media y dividiendo por el desvío, pasando todo a la Normal Estándar ($Z \sim N(0,1)$).</p>
@@ -362,6 +388,90 @@
                 <a href="#ej-4-1" class="link-btn">4.1 a 4.4</a><a href="#ej-4-9" class="link-btn">4.9</a><a href="#ej-4-11" class="link-btn">4.11</a><a href="#ej-4-14" class="link-btn">4.14</a>
             </div>
         </div>
+
+        <!-- Uso de la Tabla -->
+        <div class="card continuous" id="tabla-normal">
+            <h3>Uso de la Tabla Normal Estándar</h3>
+            <p>La tabla te da el área acumulada desde $-\infty$ hasta un valor $Z$ positivo. Es decir, $P(Z \le z)$.</p>
+            
+            <h4>Casos comunes</h4>
+            <ul>
+                <li>$P(Z \le 1.17) = 0.87900$ (Directo de la tabla).</li>
+                <li>$P(0 \le Z \le 1.17) = 0.87900 - 0.50000 = 0.37900$ (Área entre 0 y Z).</li>
+                <li>$P(Z \ge 1.17) = 1 - 0.87900 = 0.12100$ (Área a la derecha de Z).</li>
+                <li>$P(Z \le -1.17) = P(Z \ge 1.17) = 0.12100$ (Por simetría).</li>
+                <li>$P(|Z| \ge 1.17) = 2 \cdot 0.12100 = 0.24200$ (Dos colas).</li>
+            </ul>
+
+            <div class="scroll-hint">Desliza la tabla para ver todos los valores 👉</div>
+            <div class="table-container">
+                <table class="normal-table">
+                    <thead>
+                        <tr>
+                            <th>Z</th><th>0.00</th><th>0.01</th><th>0.02</th><th>0.03</th><th>0.04</th><th>0.05</th><th>0.06</th><th>0.07</th><th>0.08</th><th>0.09</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0.0</td><td>.50000</td><td>.50399</td><td>.50798</td><td>.51197</td><td>.51595</td><td>.51994</td><td>.52392</td><td>.52790</td><td>.53188</td><td>.53586</td></tr>
+                        <tr><td>0.1</td><td>.53983</td><td>.54380</td><td>.54776</td><td>.55172</td><td>.55567</td><td>.55962</td><td>.56356</td><td>.56749</td><td>.57142</td><td>.57535</td></tr>
+                        <tr><td>0.2</td><td>.57926</td><td>.58317</td><td>.58706</td><td>.59095</td><td>.59483</td><td>.59871</td><td>.60257</td><td>.60642</td><td>.61026</td><td>.61409</td></tr>
+                        <tr><td>0.3</td><td>.61791</td><td>.62172</td><td>.62552</td><td>.62930</td><td>.63307</td><td>.63683</td><td>.64058</td><td>.64431</td><td>.64803</td><td>.65173</td></tr>
+                        <tr><td>0.4</td><td>.65542</td><td>.65910</td><td>.66276</td><td>.66640</td><td>.67003</td><td>.67364</td><td>.67724</td><td>.68082</td><td>.68439</td><td>.68793</td></tr>
+                        <tr><td>0.5</td><td>.69146</td><td>.69497</td><td>.69847</td><td>.70194</td><td>.70540</td><td>.70884</td><td>.71226</td><td>.71566</td><td>.71904</td><td>.72240</td></tr>
+                        <tr><td>0.6</td><td>.72575</td><td>.72907</td><td>.73237</td><td>.73565</td><td>.73891</td><td>.74215</td><td>.74537</td><td>.74857</td><td>.75175</td><td>.75490</td></tr>
+                        <tr><td>0.7</td><td>.75804</td><td>.76115</td><td>.76424</td><td>.76730</td><td>.77035</td><td>.77337</td><td>.77637</td><td>.77935</td><td>.78230</td><td>.78524</td></tr>
+                        <tr><td>0.8</td><td>.78814</td><td>.79103</td><td>.79389</td><td>.79673</td><td>.79955</td><td>.80234</td><td>.80511</td><td>.80785</td><td>.81057</td><td>.81327</td></tr>
+                        <tr><td>0.9</td><td>.81594</td><td>.81859</td><td>.82121</td><td>.82381</td><td>.82639</td><td>.82894</td><td>.83147</td><td>.83398</td><td>.83646</td><td>.83891</td></tr>
+                        <tr><td>1.0</td><td>.84134</td><td>.84375</td><td>.84614</td><td>.84849</td><td>.85083</td><td>.85314</td><td>.85543</td><td>.85769</td><td>.85993</td><td>.86214</td></tr>
+                        <tr><td>1.1</td><td>.86433</td><td>.86650</td><td>.86864</td><td>.87076</td><td>.87286</td><td>.87493</td><td>.87698</td><td>.87900</td><td>.88100</td><td>.88298</td></tr>
+                        <tr><td>1.2</td><td>.88493</td><td>.88686</td><td>.88877</td><td>.89065</td><td>.89251</td><td>.89435</td><td>.89617</td><td>.89796</td><td>.89973</td><td>.90147</td></tr>
+                        <tr><td>1.3</td><td>.90320</td><td>.90490</td><td>.90658</td><td>.90824</td><td>.90988</td><td>.91149</td><td>.91308</td><td>.91466</td><td>.91621</td><td>.91774</td></tr>
+                        <tr><td>1.4</td><td>.91924</td><td>.92073</td><td>.92220</td><td>.92364</td><td>.92507</td><td>.92647</td><td>.92785</td><td>.92922</td><td>.93056</td><td>.93189</td></tr>
+                        <tr><td>1.5</td><td>.93319</td><td>.93448</td><td>.93574</td><td>.93699</td><td>.93822</td><td>.93943</td><td>.94062</td><td>.94179</td><td>.94295</td><td>.94408</td></tr>
+                        <tr><td>1.6</td><td>.94520</td><td>.94630</td><td>.94738</td><td>.94845</td><td>.94950</td><td>.95053</td><td>.95154</td><td>.95254</td><td>.95352</td><td>.95449</td></tr>
+                        <tr><td>1.7</td><td>.95543</td><td>.95637</td><td>.95728</td><td>.95818</td><td>.95907</td><td>.95994</td><td>.96080</td><td>.96164</td><td>.96246</td><td>.96327</td></tr>
+                        <tr><td>1.8</td><td>.96407</td><td>.96485</td><td>.96562</td><td>.96638</td><td>.96712</td><td>.96784</td><td>.96856</td><td>.96926</td><td>.96995</td><td>.97062</td></tr>
+                        <tr><td>1.9</td><td>.97128</td><td>.97193</td><td>.97257</td><td>.97320</td><td>.97381</td><td>.97441</td><td>.97500</td><td>.97558</td><td>.97615</td><td>.97670</td></tr>
+                        <tr><td>2.0</td><td>.97725</td><td>.97778</td><td>.97831</td><td>.97882</td><td>.97932</td><td>.97982</td><td>.98030</td><td>.98077</td><td>.98124</td><td>.98169</td></tr>
+                        <tr><td>2.1</td><td>.98214</td><td>.98257</td><td>.98300</td><td>.98341</td><td>.98382</td><td>.98422</td><td>.98461</td><td>.98500</td><td>.98537</td><td>.98574</td></tr>
+                        <tr><td>2.2</td><td>.98610</td><td>.98645</td><td>.98679</td><td>.98713</td><td>.98745</td><td>.98778</td><td>.98809</td><td>.98840</td><td>.98870</td><td>.98899</td></tr>
+                        <tr><td>2.3</td><td>.98928</td><td>.98956</td><td>.98983</td><td>.99010</td><td>.99036</td><td>.99061</td><td>.99086</td><td>.99111</td><td>.99134</td><td>.99158</td></tr>
+                        <tr><td>2.4</td><td>.99180</td><td>.99202</td><td>.99224</td><td>.99245</td><td>.99266</td><td>.99286</td><td>.99305</td><td>.99324</td><td>.99343</td><td>.99361</td></tr>
+                        <tr><td>2.5</td><td>.99379</td><td>.99396</td><td>.99413</td><td>.99430</td><td>.99446</td><td>.99461</td><td>.99477</td><td>.99492</td><td>.99506</td><td>.99520</td></tr>
+                        <tr><td>2.6</td><td>.99534</td><td>.99547</td><td>.99560</td><td>.99573</td><td>.99585</td><td>.99598</td><td>.99609</td><td>.99621</td><td>.99632</td><td>.99643</td></tr>
+                        <tr><td>2.7</td><td>.99653</td><td>.99664</td><td>.99674</td><td>.99683</td><td>.99693</td><td>.99702</td><td>.99711</td><td>.99720</td><td>.99728</td><td>.99736</td></tr>
+                        <tr><td>2.8</td><td>.99744</td><td>.99752</td><td>.99760</td><td>.99767</td><td>.99774</td><td>.99781</td><td>.99788</td><td>.99795</td><td>.99801</td><td>.99807</td></tr>
+                        <tr><td>2.9</td><td>.99813</td><td>.99819</td><td>.99825</td><td>.99831</td><td>.99836</td><td>.99841</td><td>.99846</td><td>.99851</td><td>.99856</td><td>.99861</td></tr>
+                        <tr><td>3.0</td><td>.99865</td><td>.99869</td><td>.99874</td><td>.99878</td><td>.99882</td><td>.99886</td><td>.99889</td><td>.99893</td><td>.99896</td><td>.99900</td></tr>
+                        <tr><td>3.1</td><td>.99903</td><td>.99906</td><td>.99910</td><td>.99913</td><td>.99916</td><td>.99918</td><td>.99921</td><td>.99924</td><td>.99926</td><td>.99929</td></tr>
+                        <tr><td>3.2</td><td>.99931</td><td>.99934</td><td>.99936</td><td>.99938</td><td>.99940</td><td>.99942</td><td>.99944</td><td>.99946</td><td>.99948</td><td>.99950</td></tr>
+                        <tr><td>3.3</td><td>.99952</td><td>.99953</td><td>.99955</td><td>.99957</td><td>.99958</td><td>.99960</td><td>.99961</td><td>.99962</td><td>.99964</td><td>.99965</td></tr>
+                        <tr><td>3.4</td><td>.99966</td><td>.99968</td><td>.99969</td><td>.99970</td><td>.99971</td><td>.99972</td><td>.99973</td><td>.99974</td><td>.99975</td><td>.99976</td></tr>
+                        <tr><td>3.5</td><td>.99977</td><td>.99978</td><td>.99978</td><td>.99979</td><td>.99980</td><td>.99981</td><td>.99981</td><td>.99982</td><td>.99983</td><td>.99983</td></tr>
+                        <tr><td>3.6</td><td>.99984</td><td>.99985</td><td>.99985</td><td>.99986</td><td>.99986</td><td>.99987</td><td>.99987</td><td>.99988</td><td>.99988</td><td>.99989</td></tr>
+                        <tr><td>3.7</td><td>.99989</td><td>.99990</td><td>.99990</td><td>.99990</td><td>.99991</td><td>.99991</td><td>.99992</td><td>.99992</td><td>.99992</td><td>.99992</td></tr>
+                        <tr><td>3.8</td><td>.99993</td><td>.99993</td><td>.99993</td><td>.99994</td><td>.99994</td><td>.99994</td><td>.99994</td><td>.99995</td><td>.99995</td><td>.99995</td></tr>
+                        <tr><td>3.9</td><td>.99995</td><td>.99995</td><td>.99996</td><td>.99996</td><td>.99996</td><td>.99996</td><td>.99996</td><td>.99996</td><td>.99997</td><td>.99997</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 14px; opacity: 0.7; margin-top: 10px;"><em>Nota: Hacé clic en cualquier valor para marcarlo/desmarcarlo.</em></p>
+        </div>
+
+        <!-- Propiedades Reproductivas -->
+        <div class="card continuous" id="propiedades-normal">
+            <h3>Propiedades Reproductivas</h3>
+            <p>Cuando sumás o promediás variables normales independientes, el resultado también es una variable normal.</p>
+            <ul>
+                <li><strong>Suma de independientes:</strong> Si $X_i \sim N(\mu_i, \sigma_i)$ son independientes, entonces $Y = X_1 + X_2 + ... + X_n \sim N(\sum \mu_i, \sqrt{\sum \sigma_i^2})$.</li>
+                <li><strong>Suma de iid:</strong> Si son independientes e idénticamente distribuidas $X_i \sim N(\mu, \sigma)$, entonces $Y = \sum_{i=1}^n X_i \sim N(n\mu, \sqrt{n}\sigma)$.</li>
+                <li><strong>Media muestral:</strong> La media aritmética $\bar{X} = \frac{1}{n}\sum X_i \sim N(\mu, \frac{\sigma}{\sqrt{n}})$.</li>
+            </ul>
+            <div class="example-block">
+                <h4>Ejemplo</h4>
+                <p>Si la altura de una persona es $N(1.70, 0.10)$ y la de otra independiente es $N(1.60, 0.08)$, la suma de sus alturas es $N(1.70+1.60, \sqrt{0.10^2+0.08^2}) = N(3.30, 0.128)$.</p>
+            </div>
+        </div>
     </section>
 
     <!-- ========================================== -->
@@ -372,38 +482,14 @@
         <p>Si estás en un examen y no sabés qué distribución usar, busá estas palabras clave en el enunciado:</p>
         
         <div class="exercise-grid">
-            <div class="card">
-                <h4>Binomial</h4>
-                <p>Si el enunciado dice: "se repite $n$ veces", "con reposición", "probabilidad de éxito constante $p$".</p>
-            </div>
-            <div class="card">
-                <h4>Hipergeométrica</h4>
-                <p>Si el enunciado dice: "se extrae SIN reposición", "de un lote de $N$ elementos", "muestra de tamaño $n$".</p>
-            </div>
-            <div class="card">
-                <h4>Geométrica</h4>
-                <p>Si el enunciado dice: "hasta el PRIMER éxito", "se repite hasta que ocurra", "primer evento".</p>
-            </div>
-            <div class="card">
-                <h4>Poisson</h4>
-                <p>Si el enunciado dice: "tasa promedio", "eventos por unidad de tiempo/espacio", "en un intervalo de longitud $t$".</p>
-            </div>
-            <div class="card">
-                <h4>Exponencial</h4>
-                <p>Si el enunciado dice: "tiempo entre eventos", "vida útil", "duración hasta la falla", "falta de memoria".</p>
-            </div>
-            <div class="card">
-                <h4>Gamma</h4>
-                <p>Si el enunciado dice: "tiempo hasta el k-ésimo evento", "tercer suceso", "hasta ver $k$ eventos".</p>
-            </div>
-            <div class="card">
-                <h4>Uniforme</h4>
-                <p>Si el enunciado dice: "se distribuye uniformemente", "al azar en un intervalo $[a, b]$", "misma probabilidad en todo el rango".</p>
-            </div>
-            <div class="card">
-                <h4>Normal</h4>
-                <p>Si el enunciado dice: "distribución normal", "media $\mu$ y desvío $\sigma$", "campana de Gauss", "se distribuye aproximadamente normal".</p>
-            </div>
+            <div class="card"><h4>Binomial</h4><p>Si el enunciado dice: "se repite $n$ veces", "con reposición", "probabilidad de éxito constante $p$".</p></div>
+            <div class="card"><h4>Hipergeométrica</h4><p>Si el enunciado dice: "se extrae SIN reposición", "de un lote de $N$ elementos", "muestra de tamaño $n$".</p></div>
+            <div class="card"><h4>Geométrica</h4><p>Si el enunciado dice: "hasta el PRIMER éxito", "se repite hasta que ocurra", "primer evento".</p></div>
+            <div class="card"><h4>Poisson</h4><p>Si el enunciado dice: "tasa promedio", "eventos por unidad de tiempo/espacio", "en un intervalo de longitud $t$".</p></div>
+            <div class="card"><h4>Exponencial</h4><p>Si el enunciado dice: "tiempo entre eventos", "vida útil", "duración hasta la falla", "falta de memoria".</p></div>
+            <div class="card"><h4>Gamma</h4><p>Si el enunciado dice: "tiempo hasta el k-ésimo evento", "tercer suceso", "hasta ver $k$ eventos".</p></div>
+            <div class="card"><h4>Uniforme</h4><p>Si el enunciado dice: "se distribuye uniformemente", "al azar en un intervalo $[a, b]$", "misma probabilidad en todo el rango".</p></div>
+            <div class="card"><h4>Normal</h4><p>Si el enunciado dice: "distribución normal", "media $\mu$ y desvío $\sigma$", "campana de Gauss", "se distribuye aproximadamente normal".</p></div>
         </div>
     </section>
 
@@ -416,370 +502,55 @@
 
         <h3 style="color: var(--color-ember-accent); margin-top: 41px;">TP3 - Modelos Discretos y Continuos</h3>
         <div class="exercise-grid">
-            <div class="exercise-card" id="ej-3-1">
-                <h4>3.1 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">Ciertos estados contables pasan por cinco secciones de verificación antes de ser aprobados. La probabilidad de que una sección cometa un error es de 0,05. Se sabe que los errores de una sección no influyen sobre los de las otras y no se comete más de un error por sección. Hallar la probabilidad de que:<br><br>a) se cometan menos de tres errores.<br>b) no se comentan errores.<br>c) se cometan exactamente tres errores.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-1')">Ver Ayuda 💡</button>
-                <div id="h-3-1" class="hint-box"><strong>Pista:</strong> Es una Binomial. Identificá n=5 (secciones) y p=0.05. Para "menos de 3" sumá P(0)+P(1)+P(2). Para "exactamente 3", usá la fórmula directa.</div>
-                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-1')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-2">
-                <h4>3.2</h4>
-                <p class="exercise-text collapsed">Se sabe que, al inyectar una droga a caballos, el 45% muere y el 55% sobrevive. Un experimentador aplica la droga a 6 caballos. Calcular:<br><br>a) la probabilidad de que al menos mueran 4 caballos<br>b) la probabilidad de que mueran a lo sumo 2 caballos<br>c) la esperanza y el desvío de la variable aleatoria C: cantidad de caballos muertos (entre los 6 a los que se aplicó la droga).</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-2')">Ver Ayuda 💡</button>
-                <div id="h-3-2" class="hint-box"><strong>Pista:</strong> Binomial(n=6, p=0.45). "Al menos 4" es P(4)+P(5)+P(6). "A lo sumo 2" es P(0)+P(1)+P(2). Esperanza: n*p, Desvío: sqrt(n*p*q).</div>
-                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-2')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-3">
-                <h4>3.3</h4>
-                <p class="exercise-text collapsed">En una caja hay 25 paquetes de harina de dos marcas diferentes: 15 paquetes de la marca “Espiguita de oro” y 10 de la marca “El molino”. Calcular la probabilidad de que al muestrear 4 paquetes sin reposición se obtenga:<br><br>a) la misma cantidad de cada marca.<br>b) todos de la misma marca.<br>c) tres de una marca y el cuarto de la otra.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-3')">Ver Ayuda 💡</button>
-                <div id="h-3-3" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=25, K=15, n=4). Ojo con el inciso a: "misma cantidad" significa 2 y 2. ¡Acordate de combinar las marcas!</div>
-                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-3')">Hipergeométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-4">
-                <h4>3.4</h4>
-                <p class="exercise-text collapsed">En un curso compuesto por 15 alumnos se forman 5 grupos de estudiantes (de igual número de alumnos) para llevar a cabo un trabajo práctico. De los 15 alumnos hay 5 que trabajan. Calcular la probabilidad de que un equipo:<br><br>a) esté formado por 3 alumnos que trabajan.<br>b) este formado por alumnos que no trabajan.<br>c) este compuesto, por lo menos, por un alumno que trabaja.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-4')">Ver Ayuda 💡</button>
-                <div id="h-3-4" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=15, K=5, n=3). Inciso c: "al menos 1" es más fácil calcularlo como 1 - P(ninguno).</div>
-                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-4')">Hipergeométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-5">
-                <h4>3.5</h4>
-                <p class="exercise-text collapsed">De un cesto de 12 manzanas, de las cuales 5 están heladas, una persona saca dos para comer. Calcular:<br><br>a) la probabilidad de que solamente pueda comer una.<br>b) la probabilidad de que a lo sumo coma una.<br>c) la esperanza y el desvío de la variable aleatoria “cantidad de manzanas heladas en dos extracciones”.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-5')">Ver Ayuda 💡</button>
-                <div id="h-3-5" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=12, K=5, n=2). "Solamente una" es P(X=1). "A lo sumo una" es P(0)+P(1).</div>
-                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-5')">Hipergeométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-6">
-                <h4>3.6</h4>
-                <p class="exercise-text collapsed">En cierta región la probabilidad de que un día cualquiera del mes de agosto sea ventoso es de 0,10. Supongamos independencia entre los climas de días distintos, ¿cuál es la probabilidad de que el primer día ventoso del mes de agosto ocurra el 19?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-6')">Ver Ayuda 💡</button>
-                <div id="h-3-6" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.1). Buscás P(X=19). Significa que fallaste 18 veces (0.9^18) y en la 19 tuviste éxito (0.1).</div>
-                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-6')">Geométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-7">
-                <h4>3.7 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">Una máquina fabrica clavos con un promedio del 1% de defectuosos, ¿cuál es la probabilidad de que haya 10 defectuosos en una muestra de 50?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-7')">Ver Ayuda 💡</button>
-                <div id="h-3-7" class="hint-box"><strong>Pista:</strong> Podés usar Binomial(n=50, p=0.01) o Poisson (lambda = n*p = 0.5). Poisson es más rápido de calcular.</div>
-                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-7')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-7')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-8">
-                <h4>3.8</h4>
-                <p class="exercise-text collapsed">Se utiliza la siguiente regla para controlar el funcionamiento de una máquina que produce cierto tipo de artículo: se selecciona una muestra de 400 artículos al azar por hora. Si el número de artículos defectuosos es de 12 o más, se detiene la máquina; si el número de defectuosos es inferior a 12, se deja que la máquina siga funcionando. ¿Cuál es la probabilidad de:<br><br>a) detener la máquina, si la misma está produciendo un 2% de artículos defectuosos?<br>b) dejar que la máquina siga funcionando, si está produciendo un 4% de artículos defectuosos?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-8')">Ver Ayuda 💡</button>
-                <div id="h-3-8" class="hint-box"><strong>Pista:</strong> Binomial(n=400, p=0.02) o Poisson(lambda=8). Para detener: P(X>=12). Para que siga: P(X<12).</div>
-                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-8')">Binomial</a> <a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-8')">Poisson</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-9">
-                <h4>3.9</h4>
-                <p class="exercise-text collapsed">Una máquina agrícola requiere en promedio una reparación cada 500 horas de trabajo. Se estima que en la próxima temporada se trabajará tres meses, todos los días y en jornadas de 10 horas.<br><br>a) ¿Cuál es la probabilidad de que la máquina no requiera reparaciones en toda la temporada?<br>b) ¿Cuál es la probabilidad de requerir a lo sumo dos reparaciones en la temporada?<br>c) ¿Cuántas reparaciones se espera tener que hacer en la temporada?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-9')">Ver Ayuda 💡</button>
-                <div id="h-3-9" class="hint-box"><strong>Pista:</strong> Poisson. Tasa base: 1/500 por hora. Temporada: 3*30*10 = 900 horas. Nuevo lambda = 900/500 = 1.8. A) P(X=0), B) P(0)+P(1)+P(2), C) La media es lambda.</div>
-                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-9')">Poisson</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-10">
-                <h4>3.10</h4>
-                <p class="exercise-text collapsed">Se desea realizar una encuesta entre amas de casa para estudiar la posibilidad de colocar un nuevo producto. Se sabe que la probabilidad de encontrar un ama de casa en su hogar es de 0,40. Si el entrevistador realiza 5 visitas por día, hallar la probabilidad de (un día cualquiera):<br><br>a) encontrar a lo sumo un ama de casa.<br>b) encontrar por lo menos dos amas de casa.<br>c) encontrar a todas las amas de casa.<br>d) no encontrar a ninguna ama de casa.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-10')">Ver Ayuda 💡</button>
-                <div id="h-3-10" class="hint-box"><strong>Pista:</strong> Binomial(n=5, p=0.4). A) P(0)+P(1). B) 1 - P(a lo sumo 1). C) P(5). D) P(0).</div>
-                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-10')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-11">
-                <h4>3.11</h4>
-                <p class="exercise-text collapsed">La probabilidad de que una vacuna genere una reacción positiva es 0,4. ¿Cuál es la probabilidad de que ocurran menos de 5 reacciones negativas antes de la primera positiva? ¿Qué debe asumirse para poder efectuar los cálculos?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-11')">Ver Ayuda 💡</button>
-                <div id="h-3-11" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.4). "Menos de 5 negativas" significa que el éxito ocurre en el intento 1, 2, 3 o 4. Sumá P(X=1) hasta P(X=4). Asumir independencia.</div>
-                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-11')">Geométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-12">
-                <h4>3.12</h4>
-                <p class="exercise-text collapsed">En una empresa comercial donde se manejan 40000 cuentas corrientes se sabe que aproximadamente un 2% de las mismas tienen errores. Si se extraen al azar 50 de ellas con reposición, indicar la probabilidad de:<br><br>a) encontrar hasta 10 cuentas con error.<br>b) no encontrar ninguna cuenta con error.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-12')">Ver Ayuda 💡</button>
-                <div id="h-3-12" class="hint-box"><strong>Pista:</strong> Binomial(n=50, p=0.02) o Poisson(lambda=1). "Hasta 10" es P(X<=10).</div>
-                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-12')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-13">
-                <h4>3.13</h4>
-                <p class="exercise-text collapsed">Según los fabricantes de una máquina automática, ésta requiere en promedio una reparación cada 2000 horas de trabajo.<br><br>a) ¿Cuál es la probabilidad de que en 4000 horas no requiera reparaciones?<br>b) ¿Cuál es la probabilidad de que en 5000 horas requiera a lo sumo una reparación?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-13')">Ver Ayuda 💡</button>
-                <div id="h-3-13" class="hint-box"><strong>Pista:</strong> Poisson. Lambda_4000 = 2, Lambda_5000 = 2.5. A) P(X=0). B) P(0)+P(1).</div>
-                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-13')">Poisson</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-14">
-                <h4>3.14</h4>
-                <p class="exercise-text collapsed">La probabilidad de que un pasajero de determinado avión sea alemán es 0,3. ¿Cuál es la probabilidad de que desciendan menos de 7 pasajeros de otra nacionalidad antes de la aparición del primer alemán?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-14')">Ver Ayuda 💡</button>
-                <div id="h-3-14" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.3). Buscás P(X < 7). Significa que el primer alemán aparece en el intento 1, 2, 3, 4, 5 o 6.</div>
-                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-14')">Geométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-15">
-                <h4>3.15</h4>
-                <p class="exercise-text collapsed">En el niquelado de ciertas láminas metálicas se producen desperfectos que se distribuyen aleatoriamente sobre toda la superficie niquelada. El número de defectos por lámina es una variable aleatoria con distribución Poisson y media 2.<br><br>a) Se eligen al azar 10 láminas de la cadena de montaje, ¿cuál es la probabilidad de que exactamente 3 de ellas tengan defectos?<br>b) ¿Cuál es la probabilidad de que la primera lámina con desperfecto elegida de la cadena de montaje sea la quinta?<br>c) ¿Qué porcentaje de láminas niqueladas tendrá al menos cuatro defectos?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-15')">Ver Ayuda 💡</button>
-                <div id="h-3-15" class="hint-box"><strong>Pista:</strong> A) Primero Poisson(lambda=2) para sacar p=P(lámina tenga defecto) = 1 - P(0). Luego Binomial(n=10, k=3). B) Geométrica. C) Poisson: P(X>=4).</div>
-                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-15')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-15')">Binomial</a> <a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-15')">Geométrica</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-16">
-                <h4>3.16 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">Una estación de radio da la hora exacta cuando se cumple cada hora, desde las 6:00 hs hasta las 24:00 hs. ¿Cuál es la probabilidad de que una persona que está escuchando esa estación tenga que esperar menos de 10 minutos para escuchar la hora exacta, si la hora a la que sintoniza la estación se distribuye uniformemente en el intervalo:<br><br>a) de 6:00 hs a 24:00 hs?<br>b) de 8:00 hs a 18:00 hs?<br>c) de 7:30 hs a 17:30 hs?<br>d) de 7:30 hs a 17:00 hs?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-16')">Ver Ayuda 💡</button>
-                <div id="h-3-16" class="hint-box"><strong>Pista:</strong> Uniforme. La probabilidad es Base * Altura. La altura es 1 / (longitud del intervalo en horas). La base son los 10 minutos (1/6 de hora) donde "ganás". Ojo con los incisos donde el intervalo no es exactamente de horas enteras.</div>
-                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-16')">Uniforme</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-17">
-                <h4>3.17</h4>
-                <p class="exercise-text collapsed">Una persona se para en el cruce de dos avenidas. Sea t el tiempo que transcurre hasta que se produce el primer accidente. ¿Qué tipo de v.a. es? ¿Cuál es la probabilidad de que ocurra un accidente antes del tiempo t que coincide con su valor esperado?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-17')">Ver Ayuda 💡</button>
-                <div id="h-3-17" class="hint-box"><strong>Pista:</strong> Exponencial. El valor esperado es 1/lambda. Calculá F(1/lambda) = P(T <= 1/lambda).</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-17')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-18">
-                <h4>3.18</h4>
-                <p class="exercise-text collapsed">Hallar la mediana de la ley exponencial y expresarla en función de la esperanza.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-18')">Ver Ayuda 💡</button>
-                <div id="h-3-18" class="hint-box"><strong>Pista:</strong> La mediana deja 50% a cada lado. F(m) = 0.5. Entonces 1 - e^(-lambda*m) = 0.5. Despejá m. La esperanza es 1/lambda.</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-18')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-19">
-                <h4>3.19</h4>
-                <p class="exercise-text collapsed">Un paracaidista cae en algún punto de la recta imaginaria que une Tandil y Rauch. Supongamos que la distancia entre dicho punto y Tandil es una v.a. uniforme en el intervalo [0; 𝑑] (d es la distancia entre Rauch y Tandil). ¿Cuál es la probabilidad de que la razón entre la distancia del paracaidista a Tandil y la distancia del paracaidista a Rauch sea:<br><br>a) mayor o igual que 3?<br>b) igual a 3?<br>c) mayor que 𝑟, ∀ 𝑟 ∈ ℝ>0?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-19')">Ver Ayuda 💡</button>
-                <div id="h-3-19" class="hint-box"><strong>Pista:</strong> Uniforme. Llamá X a la distancia a Tandil. La distancia a Rauch es (d - X). Planteá la inecuación X / (d - X) >= 3 y despejá X. Luego calculá la longitud de ese intervalo dividida por d.</div>
-                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-19')">Uniforme</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-20">
-                <h4>3.20 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">Designamos con 𝑡 la duración (en meses) de una lámpara de bajo consumo, cuya densidad es 𝒇(𝒕) = 𝒂 ⋅ 𝒆−𝒂𝒕, 𝑡 > 0. Si 𝑎 = 0,2. ¿Por cuántos meses debe el vendedor de las lámparas garantizarlas, si desea que la probabilidad de que cumplan la garantía sea 0,80?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-20')">Ver Ayuda 💡</button>
-                <div id="h-3-20" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2). Buscás un tiempo t tal que P(T <= t) = 0.80. Usá 1 - e^(-0.2*t) = 0.8 y despejá t.</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-20')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-21">
-                <h4>3.21</h4>
-                <p class="exercise-text collapsed">El tiempo durante la cual cierta marca de computadora funciona eficazmente (es decir, las horas de funcionamiento eficaz antes de la primera descompostura), es una v.a. exponencial con un promedio de descomposturas de una cada 360 hs. ¿Cuál es la probabilidad de que la computadora funcione eficazmente:<br><br>a) menos de 180 hs?<br>b) más de 720 hs?<br>c) si 3 de tales computadoras son escogidas al azar para pruebas de duración, ¿cuál es la probabilidad de que una dure 180 hs o menos, las otras dos, más de 180hs?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-21')">Ver Ayuda 💡</button>
-                <div id="h-3-21" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=1/360). A) F(180). B) 1 - F(720). C) Binomial(n=3, p=prob de que dure menos de 180hs).</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-21')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-22">
-                <h4>3.22</h4>
-                <p class="exercise-text collapsed">Dibujemos un segmento AB de longitud a, cuyo punto medio es C; un punto X es elegido al azar sobre el segmento, siendo su distancia de A una variable aleatoria ¿de qué tipo? con función densidad: f(x) = 1/a si 0 < x < a, 0 en otro caso. ¿Cuál es la probabilidad de que AX, BX y AC formen un triángulo?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-22')">Ver Ayuda 💡</button>
-                <div id="h-3-22" class="hint-box"><strong>Pista:</strong> Uniforme. Para que formen triángulo, la suma de dos lados debe ser mayor al tercero. Planteá |AX - BX| < AC. Acordate que AX + BX = a.</div>
-                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-22')">Uniforme</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-23">
-                <h4>3.23</h4>
-                <p class="exercise-text collapsed">En la fabricación del petróleo, la temperatura de destilación 𝑇 (en C°) es crucial para determinar la calidad del producto final. Asumimos que 𝑇 es una v. a. distribuida uniformemente en (150; 300) y que cuesta $1 producir un litro de petróleo.<br><br>Si el aceite se destila a una temperatura menor de 200°C, el producto se vende a $5 por litro; si se destila a una temperatura mayor que 200°𝐶, se vende a $2 el litro. Encontrar la utilidad neta esperada (por litro).</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-23')">Ver Ayuda 💡</button>
-                <div id="h-3-23" class="hint-box"><strong>Pista:</strong> Uniforme(150, 300). Calculá P(T<200) y P(T>200). Utilidad esperada = P(T<200)*4 + P(T>200)*1. (4 = 5-1, 1 = 2-1).</div>
-                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-23')">Uniforme</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-24">
-                <h4>3.24</h4>
-                <p class="exercise-text collapsed">Una variable aleatoria X tiene una función de densidad exponencial con parámetro λ = 2. Hallar la probabilidad de que la variable aleatoria se aleje respecto de la media en más de tres veces la desviación estándar.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-24')">Ver Ayuda 💡</button>
-                <div id="h-3-24" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=2). Media = 1/2, Desvío = 1/2. Buscás P(|X - 0.5| > 1.5). Como X no es negativa, esto es P(X > 2).</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-24')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-25">
-                <h4>3.25 <span class="badge">Reto</span></h4>
-                <p class="exercise-text collapsed">En la cima del cerro Uritorco el tiempo en minutos que transcurre entre la aparición de dos OVNI es una v. a. exponencial con media de cuarenta minutos. Calcular la probabilidad de que:<br><br>a) deba esperar a lo sumo 50 minutos para ver 3 platillos.<br>b) deba esperar otros 30 minutos para ver un platillo si ha esperado ya más de 15 minutos.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-25')">Ver Ayuda 💡</button>
-                <div id="h-3-25" class="hint-box"><strong>Pista:</strong> A) Gamma(k=3, lambda=1/40). P(T<=50). B) ¡Falta de memoria! Exponencial. P(T>30).</div>
-                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-25')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-25')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-26">
-                <h4>3.26</h4>
-                <p class="exercise-text collapsed">¿Cuánto tiempo debe esperar el cobrador de una casilla de peaje a la cual llegan automóviles a una tasa de 𝜇 = 1,5 automóviles por minuto, antes de que cobre el r-ésimo peaje (𝑟 ∈ ℕ)?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-26')">Ver Ayuda 💡</button>
-                <div id="h-3-26" class="hint-box"><strong>Pista:</strong> Gamma(k=r, lambda=1.5). Te piden la media, que es k / lambda.</div>
-                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-26')">Gamma</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-27">
-                <h4>3.27</h4>
-                <p class="exercise-text collapsed">Los clientes de un vendedor de periódicos le compran según una ley de probabilidades Poisson, a razón de un cliente por minuto. El vendedor acaba de atender a un cliente. ¿Cuál es la probabilidad de que transcurran 5 o más minutos hasta la llegada del último cliente, si el que acaba de atender fue:<br><br>a) el anteúltimo cliente?<br>b) el antepenúltimo cliente?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-27')">Ver Ayuda 💡</button>
-                <div id="h-3-27" class="hint-box"><strong>Pista:</strong> Gamma. A) k=2, lambda=1. P(T>=5). B) k=3, lambda=1. P(T>=5).</div>
-                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-27')">Gamma</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-28">
-                <h4>3.28</h4>
-                <p class="exercise-text collapsed">El tiempo que un empleado bancario espera la llegada de clientes a su ventanilla es una v. a. con distribución exponencial de parámetro 0,5 (medida en minutos). Un señor debe concurrir a esa ventanilla 8 veces antes de completar el trámite. ¿Cuál es la probabilidad de que 3 veces espere menos de un minuto?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-28')">Ver Ayuda 💡</button>
-                <div id="h-3-28" class="hint-box"><strong>Pista:</strong> Primero Exponencial(lambda=0.5) para hallar p=P(T<1). Luego Binomial(n=8, k=3) con esa p.</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Exponencial</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Binomial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-29">
-                <h4>3.29</h4>
-                <p class="exercise-text collapsed">Se sabe que la duración de las agujas de coser empleadas en una empresa textil tiene por día una distribución exponencial de parámetro 𝜆 = 0,2.<br><br>a) Si una máquina opera con 3 agujas, ¿cuál es la probabilidad de que en 7 días no se detenga?<br>b) Se compró un lote menor de agujas con 𝜆 = 0,1 y se mezclaron todas quedando en proporciones de 0,4 y 0,6 respectivamente, calcular la misma probabilidad pedida en a).</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-29')">Ver Ayuda 💡</button>
-                <div id="h-3-29" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2 por dia). A) P(T>7)^3. B) Probabilidad Total.</div>
-                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-29')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-30">
-                <h4>3.30 <span class="badge">Reto</span></h4>
-                <p class="exercise-text collapsed">En una cinta transportadora, los productos circulan a razón de 10 defectuosos por hora. Si un operario debe controlar el proceso:<br><br>a) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el tercer producto defectuoso?<br>b) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el 1er. producto defectuoso?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-30')">Ver Ayuda 💡</button>
-                <div id="h-3-30" class="hint-box"><strong>Pista:</strong> 10 min = 1/6 hora. A) Gamma(k=3, lambda=10). P(T < 1/6). B) Exponencial(lambda=10). P(T < 1/6).</div>
-                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-30')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-30')">Exponencial</a></div>
-            </div>
-            <div class="exercise-card" id="ej-3-31">
-                <h4>3.31 (Repaso)</h4>
-                <p class="exercise-text collapsed">Varios ejercicios integradores (hospital, fuente radiactiva, zapatos, calle, lámparas, pediatra, aves, baúl). Consultá el enunciado completo en el PDF del TP.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-3-31')">Ver Ayuda 💡</button>
-                <div id="h-3-31" class="hint-box"><strong>Pista:</strong> Este es un buen momento para repasar Poisson, Exponencial, Binomial y Uniforme. Identificá bien la tasa (lambda) en cada caso antes de arrancar.</div>
-                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-31')">Poisson</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Exp.</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Binomial</a> <a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-31')">Unif.</a> <a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-31')">Gamma</a></div>
-            </div>
+            <div class="exercise-card" id="ej-3-1"><h4>3.1 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">Ciertos estados contables pasan por cinco secciones de verificación antes de ser aprobados. La probabilidad de que una sección cometa un error es de 0,05. Se sabe que los errores de una sección no influyen sobre los de las otras y no se comete más de un error por sección. Hallar la probabilidad de que:<br><br>a) se cometan menos de tres errores.<br>b) no se comentan errores.<br>c) se cometan exactamente tres errores.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-1')">Ver Ayuda 💡</button><div id="h-3-1" class="hint-box"><strong>Pista:</strong> Es una Binomial. Identificá n=5 (secciones) y p=0.05. Para "menos de 3" sumá P(0)+P(1)+P(2). Para "exactamente 3", usá la fórmula directa.</div><div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-1')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-2"><h4>3.2</h4><p class="exercise-text collapsed">Se sabe que, al inyectar una droga a caballos, el 45% muere y el 55% sobrevive. Un experimentador aplica la droga a 6 caballos. Calcular:<br><br>a) la probabilidad de que al menos mueran 4 caballos<br>b) la probabilidad de que mueran a lo sumo 2 caballos<br>c) la esperanza y el desvío de la variable aleatoria C: cantidad de caballos muertos (entre los 6 a los que se aplicó la droga).</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-2')">Ver Ayuda 💡</button><div id="h-3-2" class="hint-box"><strong>Pista:</strong> Binomial(n=6, p=0.45). "Al menos 4" es P(4)+P(5)+P(6). "A lo sumo 2" es P(0)+P(1)+P(2). Esperanza: n*p, Desvío: sqrt(n*p*q).</div><div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-2')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-3"><h4>3.3</h4><p class="exercise-text collapsed">En una caja hay 25 paquetes de harina de dos marcas diferentes: 15 paquetes de la marca “Espiguita de oro” y 10 de la marca “El molino”. Calcular la probabilidad de que al muestrear 4 paquetes sin reposición se obtenga:<br><br>a) la misma cantidad de cada marca.<br>b) todos de la misma marca.<br>c) tres de una marca y el cuarto de la otra.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-3')">Ver Ayuda 💡</button><div id="h-3-3" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=25, K=15, n=4). Ojo con el inciso a: "misma cantidad" significa 2 y 2. ¡Acordate de combinar las marcas!</div><div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-3')">Hipergeométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-4"><h4>3.4</h4><p class="exercise-text collapsed">En un curso compuesto por 15 alumnos se forman 5 grupos de estudiantes (de igual número de alumnos) para llevar a cabo un trabajo práctico. De los 15 alumnos hay 5 que trabajan. Calcular la probabilidad de que un equipo:<br><br>a) esté formado por 3 alumnos que trabajan.<br>b) este formado por alumnos que no trabajan.<br>c) este compuesto, por lo menos, por un alumno que trabaja.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-4')">Ver Ayuda 💡</button><div id="h-3-4" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=15, K=5, n=3). Inciso c: "al menos 1" es más fácil calcularlo como 1 - P(ninguno).</div><div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-4')">Hipergeométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-5"><h4>3.5</h4><p class="exercise-text collapsed">De un cesto de 12 manzanas, de las cuales 5 están heladas, una persona saca dos para comer. Calcular:<br><br>a) la probabilidad de que solamente pueda comer una.<br>b) la probabilidad de que a lo sumo coma una.<br>c) la esperanza y el desvío de la variable aleatoria “cantidad de manzanas heladas en dos extracciones”.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-5')">Ver Ayuda 💡</button><div id="h-3-5" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=12, K=5, n=2). "Solamente una" es P(X=1). "A lo sumo una" es P(0)+P(1).</div><div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-5')">Hipergeométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-6"><h4>3.6</h4><p class="exercise-text collapsed">En cierta región la probabilidad de que un día cualquiera del mes de agosto sea ventoso es de 0,10. Supongamos independencia entre los climas de días distintos, ¿cuál es la probabilidad de que el primer día ventoso del mes de agosto ocurra el 19?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-6')">Ver Ayuda 💡</button><div id="h-3-6" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.1). Buscás P(X=19). Significa que fallaste 18 veces (0.9^18) y en la 19 tuviste éxito (0.1).</div><div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-6')">Geométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-7"><h4>3.7 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">Una máquina fabrica clavos con un promedio del 1% de defectuosos, ¿cuál es la probabilidad de que haya 10 defectuosos en una muestra de 50?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-7')">Ver Ayuda 💡</button><div id="h-3-7" class="hint-box"><strong>Pista:</strong> Podés usar Binomial(n=50, p=0.01) o Poisson (lambda = n*p = 0.5). Poisson es más rápido de calcular.</div><div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-7')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-7')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-8"><h4>3.8</h4><p class="exercise-text collapsed">Se utiliza la siguiente regla para controlar el funcionamiento de una máquina que produce cierto tipo de artículo: se selecciona una muestra de 400 artículos al azar por hora. Si el número de artículos defectuosos es de 12 o más, se detiene la máquina; si el número de defectuosos es inferior a 12, se deja que la máquina siga funcionando. ¿Cuál es la probabilidad de:<br><br>a) detener la máquina, si la misma está produciendo un 2% de artículos defectuosos?<br>b) dejar que la máquina siga funcionando, si está produciendo un 4% de artículos defectuosos?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-8')">Ver Ayuda 💡</button><div id="h-3-8" class="hint-box"><strong>Pista:</strong> Binomial(n=400, p=0.02) o Poisson(lambda=8). Para detener: P(X>=12). Para que siga: P(X<12).</div><div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-8')">Binomial</a> <a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-8')">Poisson</a></div></div>
+            <div class="exercise-card" id="ej-3-9"><h4>3.9</h4><p class="exercise-text collapsed">Una máquina agrícola requiere en promedio una reparación cada 500 horas de trabajo. Se estima que en la próxima temporada se trabajará tres meses, todos los días y en jornadas de 10 horas.<br><br>a) ¿Cuál es la probabilidad de que la máquina no requiera reparaciones en toda la temporada?<br>b) ¿Cuál es la probabilidad de requerir a lo sumo dos reparaciones en la temporada?<br>c) ¿Cuántas reparaciones se espera tener que hacer en la temporada?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-9')">Ver Ayuda 💡</button><div id="h-3-9" class="hint-box"><strong>Pista:</strong> Poisson. Tasa base: 1/500 por hora. Temporada: 3*30*10 = 900 horas. Nuevo lambda = 900/500 = 1.8. A) P(X=0), B) P(0)+P(1)+P(2), C) La media es lambda.</div><div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-9')">Poisson</a></div></div>
+            <div class="exercise-card" id="ej-3-10"><h4>3.10</h4><p class="exercise-text collapsed">Se desea realizar una encuesta entre amas de casa para estudiar la posibilidad de colocar un nuevo producto. Se sabe que la probabilidad de encontrar un ama de casa en su hogar es de 0,40. Si el entrevistador realiza 5 visitas por día, hallar la probabilidad de (un día cualquiera):<br><br>a) encontrar a lo sumo un ama de casa.<br>b) encontrar por lo menos dos amas de casa.<br>c) encontrar a todas las amas de casa.<br>d) no encontrar a ninguna ama de casa.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-10')">Ver Ayuda 💡</button><div id="h-3-10" class="hint-box"><strong>Pista:</strong> Binomial(n=5, p=0.4). A) P(0)+P(1). B) 1 - P(a lo sumo 1). C) P(5). D) P(0).</div><div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-10')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-11"><h4>3.11</h4><p class="exercise-text collapsed">La probabilidad de que una vacuna genere una reacción positiva es 0,4. ¿Cuál es la probabilidad de que ocurran menos de 5 reacciones negativas antes de la primera positiva? ¿Qué debe asumirse para poder efectuar los cálculos?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-11')">Ver Ayuda 💡</button><div id="h-3-11" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.4). "Menos de 5 negativas" significa que el éxito ocurre en el intento 1, 2, 3 o 4. Sumá P(X=1) hasta P(X=4). Asumir independencia.</div><div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-11')">Geométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-12"><h4>3.12</h4><p class="exercise-text collapsed">En una empresa comercial donde se manejan 40000 cuentas corrientes se sabe que aproximadamente un 2% de las mismas tienen errores. Si se extraen al azar 50 de ellas con reposición, indicar la probabilidad de:<br><br>a) encontrar hasta 10 cuentas con error.<br>b) no encontrar ninguna cuenta con error.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-12')">Ver Ayuda 💡</button><div id="h-3-12" class="hint-box"><strong>Pista:</strong> Binomial(n=50, p=0.02) o Poisson(lambda=1). "Hasta 10" es P(X<=10).</div><div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-12')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-13"><h4>3.13</h4><p class="exercise-text collapsed">Según los fabricantes de una máquina automática, ésta requiere en promedio una reparación cada 2000 horas de trabajo.<br><br>a) ¿Cuál es la probabilidad de que en 4000 horas no requiera reparaciones?<br>b) ¿Cuál es la probabilidad de que en 5000 horas requiera a lo sumo una reparación?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-13')">Ver Ayuda 💡</button><div id="h-3-13" class="hint-box"><strong>Pista:</strong> Poisson. Lambda_4000 = 2, Lambda_5000 = 2.5. A) P(X=0). B) P(0)+P(1).</div><div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-13')">Poisson</a></div></div>
+            <div class="exercise-card" id="ej-3-14"><h4>3.14</h4><p class="exercise-text collapsed">La probabilidad de que un pasajero de determinado avión sea alemán es 0,3. ¿Cuál es la probabilidad de que desciendan menos de 7 pasajeros de otra nacionalidad antes de la aparición del primer alemán?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-14')">Ver Ayuda 💡</button><div id="h-3-14" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.3). Buscás P(X < 7). Significa que el primer alemán aparece en el intento 1, 2, 3, 4, 5 o 6.</div><div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-14')">Geométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-15"><h4>3.15</h4><p class="exercise-text collapsed">En el niquelado de ciertas láminas metálicas se producen desperfectos que se distribuyen aleatoriamente sobre toda la superficie niquelada. El número de defectos por lámina es una variable aleatoria con distribución Poisson y media 2.<br><br>a) Se eligen al azar 10 láminas de la cadena de montaje, ¿cuál es la probabilidad de que exactamente 3 de ellas tengan defectos?<br>b) ¿Cuál es la probabilidad de que la primera lámina con desperfecto elegida de la cadena de montaje sea la quinta?<br>c) ¿Qué porcentaje de láminas niqueladas tendrá al menos cuatro defectos?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-15')">Ver Ayuda 💡</button><div id="h-3-15" class="hint-box"><strong>Pista:</strong> A) Primero Poisson(lambda=2) para sacar p=P(lámina tenga defecto) = 1 - P(0). Luego Binomial(n=10, k=3). B) Geométrica. C) Poisson: P(X>=4).</div><div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-15')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-15')">Binomial</a> <a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-15')">Geométrica</a></div></div>
+            <div class="exercise-card" id="ej-3-16"><h4>3.16 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">Una estación de radio da la hora exacta cuando se cumple cada hora, desde las 6:00 hs hasta las 24:00 hs. ¿Cuál es la probabilidad de que una persona que está escuchando esa estación tenga que esperar menos de 10 minutos para escuchar la hora exacta, si la hora a la que sintoniza la estación se distribuye uniformemente en el intervalo:<br><br>a) de 6:00 hs a 24:00 hs?<br>b) de 8:00 hs a 18:00 hs?<br>c) de 7:30 hs a 17:30 hs?<br>d) de 7:30 hs a 17:00 hs?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-16')">Ver Ayuda 💡</button><div id="h-3-16" class="hint-box"><strong>Pista:</strong> Uniforme. La probabilidad es Base * Altura. La altura es 1 / (longitud del intervalo en horas). La base son los 10 minutos (1/6 de hora) donde "ganás". Ojo con los incisos donde el intervalo no es exactamente de horas enteras.</div><div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-16')">Uniforme</a></div></div>
+            <div class="exercise-card" id="ej-3-17"><h4>3.17</h4><p class="exercise-text collapsed">Una persona se para en el cruce de dos avenidas. Sea t el tiempo que transcurre hasta que se produce el primer accidente. ¿Qué tipo de v.a. es? ¿Cuál es la probabilidad de que ocurra un accidente antes del tiempo t que coincide con su valor esperado?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-17')">Ver Ayuda 💡</button><div id="h-3-17" class="hint-box"><strong>Pista:</strong> Exponencial. El valor esperado es 1/lambda. Calculá F(1/lambda) = P(T <= 1/lambda).</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-17')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-18"><h4>3.18</h4><p class="exercise-text collapsed">Hallar la mediana de la ley exponencial y expresarla en función de la esperanza.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-18')">Ver Ayuda 💡</button><div id="h-3-18" class="hint-box"><strong>Pista:</strong> La mediana deja 50% a cada lado. F(m) = 0.5. Entonces 1 - e^(-lambda*m) = 0.5. Despejá m. La esperanza es 1/lambda.</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-18')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-19"><h4>3.19</h4><p class="exercise-text collapsed">Un paracaidista cae en algún punto de la recta imaginaria que une Tandil y Rauch. Supongamos que la distancia entre dicho punto y Tandil es una v.a. uniforme en el intervalo [0; 𝑑] (d es la distancia entre Rauch y Tandil). ¿Cuál es la probabilidad de que la razón entre la distancia del paracaidista a Tandil y la distancia del paracaidista a Rauch sea:<br><br>a) mayor o igual que 3?<br>b) igual a 3?<br>c) mayor que 𝑟, ∀ 𝑟 ∈ ℝ>0?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-19')">Ver Ayuda 💡</button><div id="h-3-19" class="hint-box"><strong>Pista:</strong> Uniforme. Llamá X a la distancia a Tandil. La distancia a Rauch es (d - X). Planteá la inecuación X / (d - X) >= 3 y despejá X. Luego calculá la longitud de ese intervalo dividida por d.</div><div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-19')">Uniforme</a></div></div>
+            <div class="exercise-card" id="ej-3-20"><h4>3.20 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">Designamos con 𝑡 la duración (en meses) de una lámpara de bajo consumo, cuya densidad es 𝒇(𝒕) = 𝒂 ⋅ 𝒆−𝒂𝒕, 𝑡 > 0. Si 𝑎 = 0,2. ¿Por cuántos meses debe el vendedor de las lámparas garantizarlas, si desea que la probabilidad de que cumplan la garantía sea 0,80?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-20')">Ver Ayuda 💡</button><div id="h-3-20" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2). Buscás un tiempo t tal que P(T <= t) = 0.80. Usá 1 - e^(-0.2*t) = 0.8 y despejá t.</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-20')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-21"><h4>3.21</h4><p class="exercise-text collapsed">El tiempo durante la cual cierta marca de computadora funciona eficazmente (es decir, las horas de funcionamiento eficaz antes de la primera descompostura), es una v.a. exponencial con un promedio de descomposturas de una cada 360 hs. ¿Cuál es la probabilidad de que la computadora funcione eficazmente:<br><br>a) menos de 180 hs?<br>b) más de 720 hs?<br>c) si 3 de tales computadoras son escogidas al azar para pruebas de duración, ¿cuál es la probabilidad de que una dure 180 hs o menos, las otras dos, más de 180hs?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-21')">Ver Ayuda 💡</button><div id="h-3-21" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=1/360). A) F(180). B) 1 - F(720). C) Binomial(n=3, p=prob de que dure menos de 180hs).</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-21')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-22"><h4>3.22</h4><p class="exercise-text collapsed">Dibujemos un segmento AB de longitud a, cuyo punto medio es C; un punto X es elegido al azar sobre el segmento, siendo su distancia de A una variable aleatoria ¿de qué tipo? con función densidad: f(x) = 1/a si 0 < x < a, 0 en otro caso. ¿Cuál es la probabilidad de que AX, BX y AC formen un triángulo?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-22')">Ver Ayuda 💡</button><div id="h-3-22" class="hint-box"><strong>Pista:</strong> Uniforme. Para que formen triángulo, la suma de dos lados debe ser mayor al tercero. Planteá |AX - BX| < AC. Acordate que AX + BX = a.</div><div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-22')">Uniforme</a></div></div>
+            <div class="exercise-card" id="ej-3-23"><h4>3.23</h4><p class="exercise-text collapsed">En la fabricación del petróleo, la temperatura de destilación 𝑇 (en C°) es crucial para determinar la calidad del producto final. Asumimos que 𝑇 es una v. a. distribuida uniformemente en (150; 300) y que cuesta $1 producir un litro de petróleo.<br><br>Si el aceite se destila a una temperatura menor de 200°C, el producto se vende a $5 por litro; si se destila a una temperatura mayor que 200°𝐶, se vende a $2 el litro. Encontrar la utilidad neta esperada (por litro).</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-23')">Ver Ayuda 💡</button><div id="h-3-23" class="hint-box"><strong>Pista:</strong> Uniforme(150, 300). Calculá P(T<200) y P(T>200). Utilidad esperada = P(T<200)*4 + P(T>200)*1. (4 = 5-1, 1 = 2-1).</div><div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-23')">Uniforme</a></div></div>
+            <div class="exercise-card" id="ej-3-24"><h4>3.24</h4><p class="exercise-text collapsed">Una variable aleatoria X tiene una función de densidad exponencial con parámetro λ = 2. Hallar la probabilidad de que la variable aleatoria se aleje respecto de la media en más de tres veces la desviación estándar.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-24')">Ver Ayuda 💡</button><div id="h-3-24" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=2). Media = 1/2, Desvío = 1/2. Buscás P(|X - 0.5| > 1.5). Como X no es negativa, esto es P(X > 2).</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-24')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-25"><h4>3.25 <span class="badge">Reto</span></h4><p class="exercise-text collapsed">En la cima del cerro Uritorco el tiempo en minutos que transcurre entre la aparición de dos OVNI es una v. a. exponencial con media de cuarenta minutos. Calcular la probabilidad de que:<br><br>a) deba esperar a lo sumo 50 minutos para ver 3 platillos.<br>b) deba esperar otros 30 minutos para ver un platillo si ha esperado ya más de 15 minutos.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-25')">Ver Ayuda 💡</button><div id="h-3-25" class="hint-box"><strong>Pista:</strong> A) Gamma(k=3, lambda=1/40). P(T<=50). B) ¡Falta de memoria! Exponencial. P(T>30).</div><div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-25')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-25')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-26"><h4>3.26</h4><p class="exercise-text collapsed">¿Cuánto tiempo debe esperar el cobrador de una casilla de peaje a la cual llegan automóviles a una tasa de 𝜇 = 1,5 automóviles por minuto, antes de que cobre el r-ésimo peaje (𝑟 ∈ ℕ)?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-26')">Ver Ayuda 💡</button><div id="h-3-26" class="hint-box"><strong>Pista:</strong> Gamma(k=r, lambda=1.5). Te piden la media, que es k / lambda.</div><div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-26')">Gamma</a></div></div>
+            <div class="exercise-card" id="ej-3-27"><h4>3.27</h4><p class="exercise-text collapsed">Los clientes de un vendedor de periódicos le compran según una ley de probabilidades Poisson, a razón de un cliente por minuto. El vendedor acaba de atender a un cliente. ¿Cuál es la probabilidad de que transcurran 5 o más minutos hasta la llegada del último cliente, si el que acaba de atender fue:<br><br>a) el anteúltimo cliente?<br>b) el antepenúltimo cliente?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-27')">Ver Ayuda 💡</button><div id="h-3-27" class="hint-box"><strong>Pista:</strong> Gamma. A) k=2, lambda=1. P(T>=5). B) k=3, lambda=1. P(T>=5).</div><div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-27')">Gamma</a></div></div>
+            <div class="exercise-card" id="ej-3-28"><h4>3.28</h4><p class="exercise-text collapsed">El tiempo que un empleado bancario espera la llegada de clientes a su ventanilla es una v. a. con distribución exponencial de parámetro 0,5 (medida en minutos). Un señor debe concurrir a esa ventanilla 8 veces antes de completar el trámite. ¿Cuál es la probabilidad de que 3 veces espere menos de un minuto?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-28')">Ver Ayuda 💡</button><div id="h-3-28" class="hint-box"><strong>Pista:</strong> Primero Exponencial(lambda=0.5) para hallar p=P(T<1). Luego Binomial(n=8, k=3) con esa p.</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Exponencial</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Binomial</a></div></div>
+            <div class="exercise-card" id="ej-3-29"><h4>3.29</h4><p class="exercise-text collapsed">Se sabe que la duración de las agujas de coser empleadas en una empresa textil tiene por día una distribución exponencial de parámetro 𝜆 = 0,2.<br><br>a) Si una máquina opera con 3 agujas, ¿cuál es la probabilidad de que en 7 días no se detenga?<br>b) Se compró un lote menor de agujas con 𝜆 = 0,1 y se mezclaron todas quedando en proporciones de 0,4 y 0,6 respectivamente, calcular la misma probabilidad pedida en a).</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-29')">Ver Ayuda 💡</button><div id="h-3-29" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2 por dia). A) P(T>7)^3. B) Probabilidad Total.</div><div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-29')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-30"><h4>3.30 <span class="badge">Reto</span></h4><p class="exercise-text collapsed">En una cinta transportadora, los productos circulan a razón de 10 defectuosos por hora. Si un operario debe controlar el proceso:<br><br>a) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el tercer producto defectuoso?<br>b) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el 1er. producto defectuoso?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-30')">Ver Ayuda 💡</button><div id="h-3-30" class="hint-box"><strong>Pista:</strong> 10 min = 1/6 hora. A) Gamma(k=3, lambda=10). P(T < 1/6). B) Exponencial(lambda=10). P(T < 1/6).</div><div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-30')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-30')">Exponencial</a></div></div>
+            <div class="exercise-card" id="ej-3-31"><h4>3.31 (Repaso)</h4><p class="exercise-text collapsed">Varios ejercicios integradores (hospital, fuente radiactiva, zapatos, calle, lámparas, pediatra, aves, baúl). Consultá el enunciado completo en el PDF del TP.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-3-31')">Ver Ayuda 💡</button><div id="h-3-31" class="hint-box"><strong>Pista:</strong> Este es un buen momento para repasar Poisson, Exponencial, Binomial y Uniforme. Identificá bien la tasa (lambda) en cada caso antes de arrancar.</div><div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-31')">Poisson</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Exp.</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Binomial</a> <a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-31')">Unif.</a> <a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-31')">Gamma</a></div></div>
         </div>
 
         <h3 style="color: var(--color-warm-cream); margin-top: 41px;">TP4 - Distribución Normal</h3>
         <div class="exercise-grid">
-            <div class="exercise-card" id="ej-4-1">
-                <h4>4.1</h4>
-                <p class="exercise-text collapsed">Dada una variable aleatoria 𝑋~ 𝑁 (0,1). Hallar el área bajo la curva en cada uno de los siguientes casos:<br><br>a) Entre 𝑤 = 0 y 𝑤 = 1.5<br>b) Entre 𝑤 = −1.2 y 𝑤 = 0<br>c) Entre 𝑤 = 0.48 y 𝑤 = 1.85<br>d) A la izquierda de 𝑤 = 1.96<br>e) A la izquierda de 𝑤 = −1.96<br>f) A la derecha de 𝑤 = −2.2<br>g) A la derecha de 𝑤 = 1.95</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-1')">Ver Ayuda 💡</button>
-                <div id="h-4-1" class="hint-box"><strong>Pista:</strong> Uso directo de la tabla Z. Para "entre dos valores", restá el acumulado menor del mayor.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-1')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-2">
-                <h4>4.2</h4>
-                <p class="exercise-text collapsed">Si 𝑍 es una variable normal estandarizada, hallar los valores de 𝑘:<br><br>a) 𝑃[𝑍 ≤ 𝑘] = 0,45<br>b) 𝑃[𝑍 ≥ 𝑘] = 0,99<br>c) 𝑃[𝑍 ≥ 𝑘] = 0,05<br>d) 𝑃[𝑍 ≤ 𝑘] = 0,25</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-2')">Ver Ayuda 💡</button>
-                <div id="h-4-2" class="hint-box"><strong>Pista:</strong> Búsqueda inversa en la tabla Z. Si te dan P(Z>=k), pasalo a P(Z<=k) = 1 - P.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-2')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-3">
-                <h4>4.3</h4>
-                <p class="exercise-text collapsed">Dada una distribución normal con media 13 y desvío estándar 10, hallar:<br><br>a) 𝑃[𝑋 ≥ 𝜇]<br>b) 𝑃[𝑋 ≤ 15]<br>c) 𝑃[12 ≤ 𝑋 ≤ 14]<br>d) 𝑃[𝑋 > 17]<br>e) 𝑃[𝜇 − 2𝜎 < 𝑋 < 𝜇 + 2𝜎]<br>f) 𝑃[𝜇 − 3𝜎 < 𝑋 < 𝜇 + 3𝜎]</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-3')">Ver Ayuda 💡</button>
-                <div id="h-4-3" class="hint-box"><strong>Pista:</strong> Estandarizar primero: Z = (X - 13)/10. Los incisos e y f son las reglas empíricas (aprox 95% y 99.7%).</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-3')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-4">
-                <h4>4.4 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">Dada una distribución normal con media 100 y desvío estándar 10, hallar:<br><br>a) 𝑥1 tal que 𝑃[𝑋 > 𝑥1] = 0,5<br>b) 𝑥2 tal que 𝑃[𝑋 ≤ 𝑥2] = 0,10<br>c) 𝑥3 tal que 𝑃[𝑋 ≥ 𝑥3] = 0,10<br>d) 𝑥4 tal que 𝑃[𝑋 ≥ 𝑥4] = 0,025</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-4')">Ver Ayuda 💡</button>
-                <div id="h-4-4" class="hint-box"><strong>Pista:</strong> Inversión de la Normal. Hallá el Z para la probabilidad dada, y luego despejá X usando X = mu + Z*sigma.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-4')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-5">
-                <h4>4.5</h4>
-                <p class="exercise-text collapsed">Se asume que el tiempo necesario para atender a cada persona en una ventanilla de una oficina está normalmente distribuida, con un promedio de 130 segundos y un desvío estándar de 45 segundos. ¿Cuál es la probabilidad de que un individuo seleccionado aleatoriamente:<br><br>a) requiera menos de 100 segundos para terminar su trámite?<br>b) pase entre 2 y 3 minutos en la ventanilla?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-5')">Ver Ayuda 💡</button>
-                <div id="h-4-5" class="hint-box"><strong>Pista:</strong> Ojo con las unidades! 2 y 3 minutos son 120 y 180 segundos. Estandarizá Z = (X - 130)/45.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-5')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-6">
-                <h4>4.6</h4>
-                <p class="exercise-text collapsed">Se sabe que la concentración media de NH3 (amonio) en sangre venosa de individuos normales de una población, es de 110 microgramos por mililitro, y que la concentración de NH3 del 99% de los individuos se encuentra entre 85 y 135 microgramos por mililitro.<br><br>a) Calcular el desvío de la concentración de NH3 en la población.<br>b) ¿Entre qué valores se encuentra el 70 % central de la población?<br>c) ¿Qué porcentaje de la población tiene valores de NH3 mayores a 135 microgramos por mililitro?<br>d) ¿Qué porcentaje de la población tiene valores de NH3 menos de 9 microgramos por mililitro?<br>e) ¿Qué porcentaje de la población tiene valores de NH3 entre 85 y 100 microgramos por mililitro?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-6')">Ver Ayuda 💡</button>
-                <div id="h-4-6" class="hint-box"><strong>Pista:</strong> El 99% central deja 0.5% en cada punta. Z_0.005 = -2.575. Usá (85 - 110) / sigma = -2.575 para hallar sigma. Luego el resto es directo.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-6')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-7">
-                <h4>4.7</h4>
-                <p class="exercise-text collapsed">Un trabajador recibirá un premio de 3000, 2000 o 1000, pesos según el tiempo que tarde en realizar un trabajo en menos de 10 horas, entre 10 y 15 horas y más de 15 horas, respectivamente. El tiempo necesario para realizar el trabajo se considera normal con promedio 13 hs. y desvío de 2.5 hs.<br><br>a) Hallar la esperanza y la función de probabilidad de la variable aleatoria 𝑋 = 𝑝𝑟𝑒𝑚𝑖𝑜 𝑟𝑒𝑐𝑖𝑏𝑖𝑑𝑜.<br>b) Definir una nueva variable aleatoria, 𝑌, con valor 1 si tarda menos de 10 horas y valor 0, en caso contrario. Obtenga la distribución de probabilidad, su esperanza y varianza.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-7')">Ver Ayuda 💡</button>
-                <div id="h-4-7" class="hint-box"><strong>Pista:</strong> Calculá P(X<10), P(10<=X<=15) y P(X>15) con la Normal. Esos serán los P(premio). Para Y, es una Bernoulli(p) donde p es la prob de tardar menos de 10hs.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-7')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-8">
-                <h4>4.8</h4>
-                <p class="exercise-text collapsed">Las longitudes de un tipo de tornillos están distribuidas normalmente con media 2 y varianza 0,0004. Los tornillos se consideran defectuosos cuando su longitud se diferencia de la longitud promedio en más de 0,025 cm.<br><br>a) ¿Qué porcentaje de tornillos son defectuosos por ser demasiado cortos?<br>b) ¿Qué porcentaje de tornillos son defectuosos por ser demasiado largos?<br>c) ¿En qué intervalo están comprendidas las longitudes del 99% de los tornillos?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-8')">Ver Ayuda 💡</button>
-                <div id="h-4-8" class="hint-box"><strong>Pista:</strong> Varianza=0.0004 => sigma=0.02. Defectuoso si |X-2| > 0.025. Corto: P(X < 1.975). Largo: P(X > 2.025).</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-8')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-9">
-                <h4>4.9 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">El gasto diario por alimentos para familias de cuatro personas en la Provincia de Buenos Aires es de $300, con una desviación de $80. Suponiendo que los gastos diarios por alimentos están normalmente distribuidos:<br><br>a) ¿Qué porcentajes de estos gastos son inferiores $350?<br>b) ¿Qué porcentajes de estos gastos se encuentran entre $250 $350?<br>c) ¿Qué porcentajes de estos gastos se encuentran entre $250 y $400?<br>d) ¿Qué porcentajes de estos gastos son inferiores a $250 ó superiores a $400?<br>e) Determinar el gasto 𝑄1 y el 𝑄3.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-9')">Ver Ayuda 💡</button>
-                <div id="h-4-9" class="hint-box"><strong>Pista:</strong> Para Q1 y Q3 usá los Z que dejan 25% a izquierda y 25% a derecha (Z=±0.67). Luego desestandarizá.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-9')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-10">
-                <h4>4.10</h4>
-                <p class="exercise-text collapsed">El cobro por llamadas telefónicas de larga distancia a Centroamérica sigue una distribución normal con media $21.<br><br>Encontrar el desvío si el 80% de las llamadas tiene un cobro superior a $17,50.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-10')">Ver Ayuda 💡</button>
-                <div id="h-4-10" class="hint-box"><strong>Pista:</strong> P(X > 17.5) = 0.8 => P(X < 17.5) = 0.2 => Z = -0.84. Plantear (17.5 - 21)/sigma = -0.84 y despejar sigma.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-10')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-11">
-                <h4>4.11 <span class="badge">Importante</span></h4>
-                <p class="exercise-text collapsed">El gerente de una pequeña estación postal está tratando de cuantificar el peso de la correspondencia semanal. En función de sus registros postula que el peso tiene una distribución normal y sabe que, en promedio, 100kg de cartas ingresan semanalmente y que el 90% de las veces el peso de la correspondencia está por debajo de 115kg.<br><br>a) ¿Cuál es la desviación estándar de esta distribución?<br>b) El 5% de las veces el peso de la correspondencia semanal es mayor a ¿qué valor?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-11')">Ver Ayuda 💡</button>
-                <div id="h-4-11" class="hint-box"><strong>Pista:</strong> P(X < 115) = 0.9 => Z = 1.28. Despejá sigma. Para el inciso b, buscá el Z que deja 95% a la izquierda (Z=1.645).</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-11')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-12">
-                <h4>4.12</h4>
-                <p class="exercise-text collapsed">Según el reglamento, el diámetro exterior 𝐷 de una flecha debe ser 4mm. 𝐷 es una variable aleatoria normal con media 4mm y varianza 0,01mm2.<br><br>a) Si el diámetro real de una flecha se diferencia del reglamentario en más de 0,05 mm, pero en menos de 0,08mm, el fabricante pierde $0,5. ¿Qué probabilidad hay de que ocurra esto?<br>b) Si la diferencia es superior a 0,08mm, pierde $1. ¿Qué probabilidad hay de que ocurra esto?<br>c) Encontrar la distribución de probabilidades de la pérdida 𝑃 y su esperanza.</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-12')">Ver Ayuda 💡</button>
-                <div id="h-4-12" class="hint-box"><strong>Pista:</strong> Calculá P(0.05 < |D-4| < 0.08) y P(|D-4| > 0.08). Con esas probabilidades armás la distribución de la pérdida.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-12')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-13">
-                <h4>4.13</h4>
-                <p class="exercise-text collapsed">La variable “el gasto promedio en artículos de perfumería por mes de un adolescente se distribuye normalmente con una dispersión de $70. Se sabe que la probabilidad de un adolescente gaste menos de $200 es de 0.0668:<br><br>a) ¿Cuál es el gastado promedio por adolescente?<br>b) ¿Cuál es la probabilidad de que un adolescente gaste en perfumería menos de $200 si los valores aumentan en un 10 %?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-13')">Ver Ayuda 💡</button>
-                <div id="h-4-13" class="hint-box"><strong>Pista:</strong> P(X<200)=0.0668 => Z=-1.5. Despejá la media. Para el inciso b, sumá 10% a los valores y recalculá Z.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-13')">Normal</a></div>
-            </div>
-            <div class="exercise-card" id="ej-4-14">
-                <h4>4.14</h4>
-                <p class="exercise-text collapsed">Las longitudes de las barras de acero producidas por una fábrica es una variable aleatoria continua X con función de densidad normal de media 𝜇 = 31.6 pies y una varianza de 0.2025 pies2.<br><br>a) Calcular la 𝑃[31.6 < 𝑋 < 32.5 / 32 < 𝑋 < 32.6]<br>b) Calcular el máximo valor del 25 % inferior de las longitudes inferiores.<br>c) Determine el intervalo que contiene el 95 % central de la distribución de 𝑋.<br>d) Si se mantiene la varianza, ¿cuál debe ser la media de 𝑋 para que las barras cortas constituyan el 0.1%? Suponga que las barras son consideradas cortas si su longitud es menor a 30 pies.<br>e) Suponga que las barras son clasificadas como Tipo A: longitud mayor a 31.5 pies y Tipo B: longitud menor a 30.2 pies. Si queremos que las barras del tipo A sean el 5% y la del tipo B sea el 2%, ¿cuáles deben ser los valores de 𝜇 y 𝜎 en la máquina?</p>
-                <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
-                <button class="help-btn" onclick="toggleHint('h-4-14')">Ver Ayuda 💡</button>
-                <div id="h-4-14" class="hint-box"><strong>Pista:</strong> Prob condicional: P(A int B)/P(B). Varianza 0.2025 => sigma=0.45. El 25% inferior es el Q1. Para el inciso e, armá un sistema de 2 ecuaciones con los Z correspondientes a 5% y 2%.</div>
-                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-14')">Normal</a></div>
-            </div>
+            <div class="exercise-card" id="ej-4-1"><h4>4.1</h4><p class="exercise-text collapsed">Dada una variable aleatoria 𝑋~ 𝑁 (0,1). Hallar el área bajo la curva en cada uno de los siguientes casos:<br><br>a) Entre 𝑤 = 0 y 𝑤 = 1.5<br>b) Entre 𝑤 = −1.2 y 𝑤 = 0<br>c) Entre 𝑤 = 0.48 y 𝑤 = 1.85<br>d) A la izquierda de 𝑤 = 1.96<br>e) A la izquierda de 𝑤 = −1.96<br>f) A la derecha de 𝑤 = −2.2<br>g) A la derecha de 𝑤 = 1.95</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-1')">Ver Ayuda 💡</button><div id="h-4-1" class="hint-box"><strong>Pista:</strong> Uso directo de la tabla Z. Para "entre dos valores", restá el acumulado menor del mayor.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-1')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-2"><h4>4.2</h4><p class="exercise-text collapsed">Si 𝑍 es una variable normal estandarizada, hallar los valores de 𝑘:<br><br>a) 𝑃[𝑍 ≤ 𝑘] = 0,45<br>b) 𝑃[𝑍 ≥ 𝑘] = 0,99<br>c) 𝑃[𝑍 ≥ 𝑘] = 0,05<br>d) 𝑃[𝑍 ≤ 𝑘] = 0,25</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-2')">Ver Ayuda 💡</button><div id="h-4-2" class="hint-box"><strong>Pista:</strong> Búsqueda inversa en la tabla Z. Si te dan P(Z>=k), pasalo a P(Z<=k) = 1 - P.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-2')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-3"><h4>4.3</h4><p class="exercise-text collapsed">Dada una distribución normal con media 13 y desvío estándar 10, hallar:<br><br>a) 𝑃[𝑋 ≥ 𝜇]<br>b) 𝑃[𝑋 ≤ 15]<br>c) 𝑃[12 ≤ 𝑋 ≤ 14]<br>d) 𝑃[𝑋 > 17]<br>e) 𝑃[𝜇 − 2𝜎 < 𝑋 < 𝜇 + 2𝜎]<br>f) 𝑃[𝜇 − 3𝜎 < 𝑋 < 𝜇 + 3𝜎]</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-3')">Ver Ayuda 💡</button><div id="h-4-3" class="hint-box"><strong>Pista:</strong> Estandarizar primero: Z = (X - 13)/10. Los incisos e y f son las reglas empíricas (aprox 95% y 99.7%).</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-3')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-4"><h4>4.4 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">Dada una distribución normal con media 100 y desvío estándar 10, hallar:<br><br>a) 𝑥1 tal que 𝑃[𝑋 > 𝑥1] = 0,5<br>b) 𝑥2 tal que 𝑃[𝑋 ≤ 𝑥2] = 0,10<br>c) 𝑥3 tal que 𝑃[𝑋 ≥ 𝑥3] = 0,10<br>d) 𝑥4 tal que 𝑃[𝑋 ≥ 𝑥4] = 0,025</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-4')">Ver Ayuda 💡</button><div id="h-4-4" class="hint-box"><strong>Pista:</strong> Inversión de la Normal. Hallá el Z para la probabilidad dada, y luego despejá X usando X = mu + Z*sigma.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-4')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-5"><h4>4.5</h4><p class="exercise-text collapsed">Se asume que el tiempo necesario para atender a cada persona en una ventanilla de una oficina está normalmente distribuida, con un promedio de 130 segundos y un desvío estándar de 45 segundos. ¿Cuál es la probabilidad de que un individuo seleccionado aleatoriamente:<br><br>a) requiera menos de 100 segundos para terminar su trámite?<br>b) pase entre 2 y 3 minutos en la ventanilla?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-5')">Ver Ayuda 💡</button><div id="h-4-5" class="hint-box"><strong>Pista:</strong> Ojo con las unidades! 2 y 3 minutos son 120 y 180 segundos. Estandarizá Z = (X - 130)/45.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-5')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-6"><h4>4.6</h4><p class="exercise-text collapsed">Se sabe que la concentración media de NH3 (amonio) en sangre venosa de individuos normales de una población, es de 110 microgramos por mililitro, y que la concentración de NH3 del 99% de los individuos se encuentra entre 85 y 135 microgramos por mililitro.<br><br>a) Calcular el desvío de la concentración de NH3 en la población.<br>b) ¿Entre qué valores se encuentra el 70 % central de la población?<br>c) ¿Qué porcentaje de la población tiene valores de NH3 mayores a 135 microgramos por mililitro?<br>d) ¿Qué porcentaje de la población tiene valores de NH3 menos de 9 microgramos por mililitro?<br>e) ¿Qué porcentaje de la población tiene valores de NH3 entre 85 y 100 microgramos por mililitro?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-6')">Ver Ayuda 💡</button><div id="h-4-6" class="hint-box"><strong>Pista:</strong> El 99% central deja 0.5% en cada punta. Z_0.005 = -2.575. Usá (85 - 110) / sigma = -2.575 para hallar sigma. Luego el resto es directo.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-6')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-7"><h4>4.7</h4><p class="exercise-text collapsed">Un trabajador recibirá un premio de 3000, 2000 o 1000, pesos según el tiempo que tarde en realizar un trabajo en menos de 10 horas, entre 10 y 15 horas y más de 15 horas, respectivamente. El tiempo necesario para realizar el trabajo se considera normal con promedio 13 hs. y desvío de 2.5 hs.<br><br>a) Hallar la esperanza y la función de probabilidad de la variable aleatoria 𝑋 = 𝑝𝑟𝑒𝑚𝑖𝑜 𝑟𝑒𝑐𝑖𝑏𝑖𝑑𝑜.<br>b) Definir una nueva variable aleatoria, 𝑌, con valor 1 si tarda menos de 10 horas y valor 0, en caso contrario. Obtenga la distribución de probabilidad, su esperanza y varianza.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-7')">Ver Ayuda 💡</button><div id="h-4-7" class="hint-box"><strong>Pista:</strong> Calculá P(X<10), P(10<=X<=15) y P(X>15) con la Normal. Esos serán los P(premio). Para Y, es una Bernoulli(p) donde p es la prob de tardar menos de 10hs.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-7')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-8"><h4>4.8</h4><p class="exercise-text collapsed">Las longitudes de un tipo de tornillos están distribuidas normalmente con media 2 y varianza 0,0004. Los tornillos se consideran defectuosos cuando su longitud se diferencia de la longitud promedio en más de 0,025 cm.<br><br>a) ¿Qué porcentaje de tornillos son defectuosos por ser demasiado cortos?<br>b) ¿Qué porcentaje de tornillos son defectuosos por ser demasiado largos?<br>c) ¿En qué intervalo están comprendidas las longitudes del 99% de los tornillos?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-8')">Ver Ayuda 💡</button><div id="h-4-8" class="hint-box"><strong>Pista:</strong> Varianza=0.0004 => sigma=0.02. Defectuoso si |X-2| > 0.025. Corto: P(X < 1.975). Largo: P(X > 2.025).</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-8')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-9"><h4>4.9 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">El gasto diario por alimentos para familias de cuatro personas en la Provincia de Buenos Aires es de $300, con una desviación de $80. Suponiendo que los gastos diarios por alimentos están normalmente distribuidos:<br><br>a) ¿Qué porcentajes de estos gastos son inferiores $350?<br>b) ¿Qué porcentajes de estos gastos se encuentran entre $250 $350?<br>c) ¿Qué porcentajes de estos gastos se encuentran entre $250 y $400?<br>d) ¿Qué porcentajes de estos gastos son inferiores a $250 ó superiores a $400?<br>e) Determinar el gasto 𝑄1 y el 𝑄3.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-9')">Ver Ayuda 💡</button><div id="h-4-9" class="hint-box"><strong>Pista:</strong> Para Q1 y Q3 usá los Z que dejan 25% a izquierda y 25% a derecha (Z=±0.67). Luego desestandarizá.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-9')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-10"><h4>4.10</h4><p class="exercise-text collapsed">El cobro por llamadas telefónicas de larga distancia a Centroamérica sigue una distribución normal con media $21.<br><br>Encontrar el desvío si el 80% de las llamadas tiene un cobro superior a $17,50.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-10')">Ver Ayuda 💡</button><div id="h-4-10" class="hint-box"><strong>Pista:</strong> P(X > 17.5) = 0.8 => P(X < 17.5) = 0.2 => Z = -0.84. Plantear (17.5 - 21)/sigma = -0.84 y despejar sigma.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-10')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-11"><h4>4.11 <span class="badge">Importante</span></h4><p class="exercise-text collapsed">El gerente de una pequeña estación postal está tratando de cuantificar el peso de la correspondencia semanal. En función de sus registros postula que el peso tiene una distribución normal y sabe que, en promedio, 100kg de cartas ingresan semanalmente y que el 90% de las veces el peso de la correspondencia está por debajo de 115kg.<br><br>a) ¿Cuál es la desviación estándar de esta distribución?<br>b) El 5% de las veces el peso de la correspondencia semanal es mayor a ¿qué valor?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-11')">Ver Ayuda 💡</button><div id="h-4-11" class="hint-box"><strong>Pista:</strong> P(X < 115) = 0.9 => Z = 1.28. Despejá sigma. Para el inciso b, buscá el Z que deja 95% a la izquierda (Z=1.645).</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-11')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-12"><h4>4.12</h4><p class="exercise-text collapsed">Según el reglamento, el diámetro exterior 𝐷 de una flecha debe ser 4mm. 𝐷 es una variable aleatoria normal con media 4mm y varianza 0,01mm2.<br><br>a) Si el diámetro real de una flecha se diferencia del reglamentario en más de 0,05 mm, pero en menos de 0,08mm, el fabricante pierde $0,5. ¿Qué probabilidad hay de que ocurra esto?<br>b) Si la diferencia es superior a 0,08mm, pierde $1. ¿Qué probabilidad hay de que ocurra esto?<br>c) Encontrar la distribución de probabilidades de la pérdida 𝑃 y su esperanza.</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-12')">Ver Ayuda 💡</button><div id="h-4-12" class="hint-box"><strong>Pista:</strong> Calculá P(0.05 < |D-4| < 0.08) y P(|D-4| > 0.08). Con esas probabilidades armás la distribución de la pérdida.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-12')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-13"><h4>4.13</h4><p class="exercise-text collapsed">La variable “el gasto promedio en artículos de perfumería por mes de un adolescente se distribuye normalmente con una dispersión de $70. Se sabe que la probabilidad de un adolescente gaste menos de $200 es de 0.0668:<br><br>a) ¿Cuál es el gastado promedio por adolescente?<br>b) ¿Cuál es la probabilidad de que un adolescente gaste en perfumería menos de $200 si los valores aumentan en un 10 %?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-13')">Ver Ayuda 💡</button><div id="h-4-13" class="hint-box"><strong>Pista:</strong> P(X<200)=0.0668 => Z=-1.5. Despejá la media. Para el inciso b, sumá 10% a los valores y recalculá Z.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-13')">Normal</a></div></div>
+            <div class="exercise-card" id="ej-4-14"><h4>4.14</h4><p class="exercise-text collapsed">Las longitudes de las barras de acero producidas por una fábrica es una variable aleatoria continua X con función de densidad normal de media 𝜇 = 31.6 pies y una varianza de 0.2025 pies2.<br><br>a) Calcular la 𝑃[31.6 < 𝑋 < 32.5 / 32 < 𝑋 < 32.6]<br>b) Calcular el máximo valor del 25 % inferior de las longitudes inferiores.<br>c) Determine el intervalo que contiene el 95 % central de la distribución de 𝑋.<br>d) Si se mantiene la varianza, ¿cuál debe ser la media de 𝑋 para que las barras cortas constituyan el 0.1%? Suponga que las barras son consideradas cortas si su longitud es menor a 30 pies.<br>e) Suponga que las barras son clasificadas como Tipo A: longitud mayor a 31.5 pies y Tipo B: longitud menor a 30.2 pies. Si queremos que las barras del tipo A sean el 5% y la del tipo B sea el 2%, ¿cuáles deben ser los valores de 𝜇 y 𝜎 en la máquina?</p><button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button><button class="help-btn" onclick="toggleHint('h-4-14')">Ver Ayuda 💡</button><div id="h-4-14" class="hint-box"><strong>Pista:</strong> Prob condicional: P(A int B)/P(B). Varianza 0.2025 => sigma=0.45. El 25% inferior es el Q1. Para el inciso e, armá un sistema de 2 ecuaciones con los Z correspondientes a 5% y 2%.</div><div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-14')">Normal</a></div></div>
         </div>
     </section>
 </div>
@@ -798,6 +569,17 @@
         const el = document.getElementById(id);
         el.style.display = (el.style.display === 'block') ? 'none' : 'block';
     }
+
+    // --- TABLE CLICK SELECT ---
+    document.querySelector('.normal-table tbody').addEventListener('click', function(e) {
+        if(e.target.tagName === 'TD' && !e.target.classList.contains('selected-cell')) {
+            // Remover seleccionados previos (opcional, comentar si querés marcar múltiples)
+            this.querySelectorAll('.selected-cell').forEach(cell => cell.classList.remove('selected-cell'));
+            e.target.classList.add('selected-cell');
+        } else if (e.target.tagName === 'TD') {
+            e.target.classList.remove('selected-cell');
+        }
+    });
 
     // --- BACK TO EXERCISE LOGIC ---
     let currentExerciseId = null;
@@ -830,6 +612,26 @@
         }
     });
 
+    // --- SCROLL SPY FOR NAVBAR ---
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id], div.card[id]');
+
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(sec => navObserver.observe(sec));
+
     // --- MATH UTILS ---
     function factorial(n) { if (n === 0 || n === 1) return 1; let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; }
     function binomialCoef(n, k) { if (k < 0 || k > n) return 0; return factorial(n) / (factorial(k) * factorial(n - k)); }
@@ -843,9 +645,7 @@
     }
 
     function getColors() {
-        return {
-            bg: '#100904', axis: '#6c5f51', text: '#ffedd7', bar: '#dc5000', line: '#dc5000', area: 'rgba(220, 80, 0, 0.3)'
-        };
+        return { bg: '#100904', axis: '#6c5f51', text: '#ffedd7', bar: '#dc5000', line: '#dc5000', area: 'rgba(220, 80, 0, 0.3)' };
     }
 
     // --- PLOT FUNCTIONS ---
