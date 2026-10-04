@@ -3,147 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Probabilidad Interactiva | Clases 2 y 3</title>
-    <!-- KaTeX para matemáticas -->
+    <title>Probabilidad Interactiva | Oryzo</title>
+    <!-- KaTeX -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters:[{left: '$$', right: '$$', display: true},{left: '$', right: '$', display: false}]});"></script>
-    <!-- Fuentes -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #f8f9fa; --text-main: #0a192f; --bg-navbar: #0a192f; --text-navbar: #f8f9fa;
-            --bg-card: #ffffff; --bg-canvas: #ffffff; --axis-canvas: #cccccc; --text-canvas: #333333;
-            --bg-formula: #f1f3f5; --bg-control: #f1f3f5; --bg-example: #eef5ff; --border-color: #e9ecef;
-            --shadow-card: 0 4px 6px rgba(0,0,0,0.05);
-            --accent-discrete: #ff6b35; --accent-poisson: #2ec4b6; --accent-continuous: #4361ee;
-            --grid-line: rgba(0, 0, 0, 0.05);
-            --badge-rec-bg: #ffd9cc; --badge-rec-text: #cc4b1e;
-            --hint-bg: #fff9e6; --hint-text: #5c4a00; --hint-border: #ffe066;
-        }
+            /* Colors */
+            --color-warm-cream: #ffedd7;
+            --color-walnut-shadow: #100904;
+            --color-bark-brown: #382416;
+            --color-cork-border: #40372e;
+            --color-driftwood: #6c5f51;
+            --color-ember-accent: #dc5000;
+            --color-pure-black: #000000;
 
-        body.dark-mode {
-            --bg-main: #0f172a; --text-main: #e2e8f0; --bg-navbar: #020617; --text-navbar: #f8f9fa;
-            --bg-card: #1e293b; --bg-canvas: #1e293b; --axis-canvas: #475569; --text-canvas: #cbd5e1;
-            --bg-formula: #334155; --bg-control: #334155; --bg-example: #1e3a5f; --border-color: #475569;
-            --shadow-card: 0 4px 6px rgba(0,0,0,0.3);
-            --accent-discrete: #ff8c5a; --accent-poisson: #5eead4; --accent-continuous: #60a5fa;
-            --grid-line: rgba(255, 255, 255, 0.05);
-            --badge-rec-bg: rgba(255, 107, 53, 0.2); --badge-rec-text: #ff8c5a;
-            --hint-bg: #2d2800; --hint-text: #ffdd66; --hint-border: #5c4a00;
+            /* Typography */
+            --font-halyard: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --text-display: 51px;
+            --text-heading: 41px;
+            --text-body: 29px;
+            --text-heading-sm: 24px;
+            --text-subheading: 18px;
+
+            /* Spacing & Radius */
+            --spacing-12: 12px;
+            --spacing-18: 18px;
+            --spacing-24: 24px;
+            --spacing-41: 41px;
+            --spacing-68: 68px;
+            
+            --radius-cards: 12px;
+            --radius-pill: 36px;
+            --radius-outline: 22.5px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg-main);
-            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 20px 20px;
-            color: var(--text-main); font-family: 'Lora', serif; line-height: 1.7;
-            overflow-x: hidden; scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s;
+            background-color: var(--color-walnut-shadow);
+            color: var(--color-warm-cream);
+            font-family: var(--font-halyard);
+            font-size: var(--text-body);
+            line-height: 1.26;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        h1, h2, h3, h4 { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text-main); }
-        h1 { font-size: 2.5rem; margin-bottom: 1rem; line-height: 1.1; }
-        h2 { font-size: 2rem; margin: 4rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--text-main); scroll-margin-top: 80px; }
-        h3 { font-size: 1.4rem; margin: 2rem 0 1rem; color: var(--accent-discrete); scroll-margin-top: 80px; }
-        h4 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; font-weight: 500; }
-        p { margin-bottom: 1.2rem; max-width: 800px; }
-        ul { margin-bottom: 1.2rem; padding-left: 20px; } li { margin-bottom: 0.5rem; }
-        code { font-family: 'JetBrains Mono', monospace; background: var(--bg-control); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9rem; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+        h1, h2, h3, h4, nav, button, .uppercase {
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: normal;
+        }
 
-        .navbar { position: sticky; top: 0; width: 100%; background: var(--bg-navbar); padding: 1rem 1.5rem; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .nav-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        .navbar a { color: var(--text-navbar); text-decoration: none; font-family: 'Inter'; font-weight: 500; font-size: 0.9rem; transition: color 0.2s; }
-        .navbar a:hover { color: var(--accent-discrete); }
-        
-        .theme-btn { background: none; border: none; cursor: pointer; font-size: 1.5rem; filter: grayscale(0%); transition: transform 0.2s; }
-        .theme-btn:hover { transform: scale(1.2) rotate(15deg); }
+        h1 { font-size: var(--text-display); line-height: 0.9; margin-bottom: var(--spacing-24); max-width: 900px; }
+        h2 { font-size: var(--text-heading); line-height: 0.9; margin: var(--spacing-68) 0 var(--spacing-41); padding-bottom: var(--spacing-18); border-bottom: 1px dashed var(--color-cork-border); scroll-margin-top: 80px; }
+        h3 { font-size: var(--text-heading-sm); line-height: 1.09; margin: var(--spacing-41) 0 var(--spacing-18); color: var(--color-warm-cream); scroll-margin-top: 80px; }
+        h4 { font-size: var(--text-subheading); line-height: 1; margin: var(--spacing-18) 0 var(--spacing-12); color: var(--color-ember-accent); }
 
-        header.hero { min-height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: var(--bg-navbar); color: var(--text-navbar); margin-bottom: 2rem; padding: 2rem; }
-        header.hero h1 { color: var(--text-navbar); border: none; }
-        header.hero p { color: rgba(255,255,255,0.8); font-size: 1.1rem; max-width: 600px; }
+        p { font-weight: 400; text-transform: none; margin-bottom: var(--spacing-18); max-width: 800px; }
+        ul { list-style: none; margin-bottom: var(--spacing-18); }
+        li { margin-bottom: var(--spacing-12); padding-left: var(--spacing-18); position: relative; }
+        li::before { content: '—'; position: absolute; left: 0; color: var(--color-driftwood); }
 
-        .card { background: var(--bg-card); padding: 1.5rem; border-radius: 8px; box-shadow: var(--shadow-card); border-left: 5px solid var(--accent-discrete); margin-bottom: 1.5rem; scroll-margin-top: 80px; transition: background 0.3s; }
-        .card.poisson { border-left-color: var(--accent-poisson); }
-        .card.continuous { border-left-color: var(--accent-continuous); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 var(--spacing-24); }
 
-        .interactive-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; transition: background 0.3s; }
-        .canvas-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-bottom: 1rem; }
-        canvas { background: var(--bg-canvas); border-radius: 4px; }
+        /* Navbar */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(16, 9, 4, 0.8); backdrop-filter: blur(10px); padding: var(--spacing-18) var(--spacing-24); z-index: 1000; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-cork-border); }
+        .nav-logo { font-size: 14px; font-weight: 500; color: var(--color-warm-cream); text-decoration: none; }
+        .nav-links { display: flex; gap: var(--spacing-24); }
+        .nav-links a { color: var(--color-warm-cream); text-decoration: none; font-size: 12px; font-weight: 500; text-transform: uppercase; transition: color 0.2s; border-bottom: 1px dashed transparent; padding-bottom: 2px; }
+        .nav-links a:hover { color: var(--color-ember-accent); border-bottom-color: var(--color-ember-accent); }
 
-        .control-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; background: var(--bg-control); padding: 1rem; border-radius: 6px; }
-        input[type="range"] { width: 100%; max-width: 200px; cursor: pointer; accent-color: var(--accent-discrete); }
-        .value-display { font-family: 'Inter', sans-serif; font-weight: 700; min-width: 40px; text-align: right; }
+        /* Hero */
+        header.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--spacing-24); }
+        header.hero p { color: var(--color-warm-cream); opacity: 0.8; max-width: 600px; margin-top: var(--spacing-24); }
 
-        .formula-block { background: var(--bg-formula); padding: 1rem; border-radius: 4px; text-align: center; margin: 1.5rem 0; overflow-x: auto; border: 1px dashed var(--border-color); }
-        .example-block { background: var(--bg-example); padding: 1rem; border-radius: 6px; margin-top: 1rem; border-left: 3px solid var(--accent-continuous); }
-        .example-block h4 { color: var(--accent-continuous); margin-top: 0; }
+        /* Cards */
+        .card { background: var(--color-bark-brown); border-radius: var(--radius-cards); padding: var(--spacing-24); margin-bottom: var(--spacing-24); scroll-margin-top: 80px; }
+        .card.poisson { border-left: 4px solid var(--color-ember-accent); }
+        .card.continuous { border-left: 4px solid var(--color-warm-cream); }
 
-        .tp-links { margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color); }
-        .tp-links strong { font-family: 'Inter'; font-size: 0.9rem; }
-        .link-btn { display: inline-block; background: var(--bg-navbar); color: #fff; padding: 0.3rem 0.8rem; border-radius: 20px; text-decoration: none; font-family: 'Inter'; font-size: 0.8rem; margin: 0.2rem; transition: background 0.2s, transform 0.1s; cursor: pointer; border: none; }
-        .link-btn:hover { background: var(--accent-discrete); transform: translateY(-2px); }
-        .link-btn.concept { background: var(--accent-continuous); }
-        .link-btn.concept:hover { background: var(--bg-navbar); }
+        /* Formula & Examples */
+        .formula-block { background: var(--color-walnut-shadow); border: 1px dashed var(--color-cork-border); border-radius: var(--radius-cards); padding: var(--spacing-24); margin: var(--spacing-24) 0; text-align: center; overflow-x: auto; color: var(--color-warm-cream); }
+        .katex { color: var(--color-warm-cream); }
+        .example-block { border-top: 1px dashed var(--color-cork-border); margin-top: var(--spacing-24); padding-top: var(--spacing-24); }
+        .example-block h4 { color: var(--color-ember-accent); }
 
-        .roadmap-step { position: relative; padding-left: 2rem; margin-bottom: 2rem; border-left: 2px solid var(--text-main); }
-        .roadmap-step::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--text-main); }
-        .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.8rem; font-family: 'Inter', sans-serif; font-weight: 500; margin-right: 0.5rem; margin-bottom: 0.5rem; }
-        .badge-rec { background: var(--badge-rec-bg); color: var(--badge-rec-text); }
+        /* Interactive */
+        .interactive-box { background: var(--color-bark-brown); border-radius: var(--radius-cards); padding: var(--spacing-24); margin-top: var(--spacing-24); }
+        .canvas-container { display: flex; flex-wrap: wrap; gap: var(--spacing-24); justify-content: center; margin-bottom: var(--spacing-24); }
+        canvas { background: var(--color-walnut-shadow); border-radius: var(--radius-cards); }
+        .control-group { display: flex; align-items: center; gap: var(--spacing-18); flex-wrap: wrap; margin-bottom: var(--spacing-18); background: var(--color-walnut-shadow); padding: var(--spacing-18); border-radius: var(--radius-cards); }
+        input[type="range"] { width: 100%; max-width: 200px; cursor: pointer; accent-color: var(--color-ember-accent); }
+        .value-display { font-weight: 500; min-width: 40px; text-align: right; }
 
-        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
-        .exercise-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; box-shadow: var(--shadow-card); scroll-margin-top: 80px; transition: background 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
-        .exercise-card.flash { box-shadow: 0 0 0 4px var(--accent-discrete); }
-        .exercise-card h4 { margin-top: 0; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; }
-        
-        .exercise-text { font-size: 0.9rem; color: var(--text-main); opacity: 0.9; flex-grow: 1; margin-bottom: 0.5rem; }
+        /* Buttons */
+        .ghost-btn { background: transparent; border: 1px solid var(--color-warm-cream); color: var(--color-warm-cream); padding: 7.5px 24px; border-radius: var(--radius-outline); font-family: var(--font-halyard); font-weight: 500; font-size: 12px; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: all 0.2s; display: inline-block; margin-top: var(--spacing-41); }
+        .ghost-btn:hover { background: var(--color-warm-cream); color: var(--color-walnut-shadow); }
+        .link-btn { background: transparent; border: 1px solid var(--color-cork-border); color: var(--color-warm-cream); padding: 5px 12px; border-radius: var(--radius-outline); font-family: var(--font-halyard); font-weight: 500; font-size: 12px; text-transform: uppercase; cursor: pointer; text-decoration: none; margin: 4px; display: inline-block; }
+        .link-btn:hover { border-color: var(--color-warm-cream); background: var(--color-walnut-shadow); }
+
+        /* Exercises */
+        .exercise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--spacing-24); }
+        .exercise-card { background: var(--color-bark-brown); border-radius: var(--radius-cards); padding: var(--spacing-24); scroll-margin-top: 80px; display: flex; flex-direction: column; transition: border-color 0.3s; border: 1px solid transparent; }
+        .exercise-card.flash { border-color: var(--color-ember-accent); }
+        .exercise-card h4 { display: flex; justify-content: space-between; align-items: center; margin-top: 0; color: var(--color-warm-cream); }
+        .badge { font-size: 10px; padding: 4px 8px; border-radius: 9999px; background: var(--color-walnut-shadow); color: var(--color-ember-accent); border: 1px solid var(--color-ember-accent); text-transform: uppercase; }
+        .exercise-text { font-size: var(--text-subheading); line-height: 1.26; color: var(--color-warm-cream); opacity: 0.8; flex-grow: 1; margin-bottom: 12px; }
         .exercise-text.collapsed { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-        
-        .read-more-btn { background: none; border: none; color: var(--accent-continuous); font-family: 'Inter'; font-weight: 700; font-size: 0.85rem; cursor: pointer; padding: 0; margin-bottom: 1rem; text-align: left; }
+        .read-more-btn { background: none; border: none; color: var(--color-ember-accent); font-family: var(--font-halyard); font-weight: 500; font-size: 12px; cursor: pointer; padding: 0; margin-bottom: 12px; text-transform: uppercase; text-align: left; }
         .read-more-btn:hover { text-decoration: underline; }
+        .help-btn { background: var(--color-walnut-shadow); color: var(--color-warm-cream); border: 1px solid var(--color-cork-border); padding: 7.5px 16px; border-radius: var(--radius-outline); cursor: pointer; font-family: var(--font-halyard); font-weight: 500; font-size: 12px; margin-top: 12px; align-self: flex-start; text-transform: uppercase; transition: all 0.2s; }
+        .help-btn:hover { background: var(--color-ember-accent); border-color: var(--color-ember-accent); }
+        .hint-box { display: none; margin-top: 12px; padding: var(--spacing-18); background: var(--color-walnut-shadow); color: var(--color-warm-cream); border-left: 4px solid var(--color-ember-accent); border-radius: 0 var(--radius-cards) var(--radius-cards) 0; font-size: 16px; line-height: 1.26; }
+        .hint-box strong { font-family: var(--font-halyard); font-weight: 500; text-transform: uppercase; color: var(--color-ember-accent); }
 
-        .help-btn { background: var(--bg-control); color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-family: 'Inter'; font-weight: 500; font-size: 0.8rem; margin-top: 0.5rem; align-self: flex-start; transition: background 0.2s; }
-        .help-btn:hover { background: var(--accent-discrete); color: white; border-color: var(--accent-discrete); }
-        
-        .hint-box { display: none; margin-top: 1rem; padding: 1rem; background: var(--hint-bg); color: var(--hint-text); border-left: 4px solid var(--hint-border); border-radius: 4px; font-size: 0.85rem; font-family: 'Lora'; }
-        .hint-box strong { font-family: 'Inter'; }
-
-        #back-to-exercise-btn {
-            position: fixed; bottom: 20px; right: 20px; display: none;
-            background: var(--accent-discrete); color: white; padding: 1rem 1.5rem;
-            border: none; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            cursor: pointer; font-family: 'Inter'; font-weight: 700; z-index: 1001;
-            transition: transform 0.2s, opacity 0.3s; opacity: 0;
-        }
-        #back-to-exercise-btn:hover { transform: scale(1.05); }
+        /* Floating Back Btn */
+        #back-to-exercise-btn { position: fixed; bottom: 24px; right: 24px; display: none; background: var(--color-bark-brown); color: var(--color-warm-cream); padding: 14px 24px; border: 1px solid var(--color-warm-cream); border-radius: var(--radius-pill); cursor: pointer; font-family: var(--font-halyard); font-weight: 500; font-size: 12px; text-transform: uppercase; z-index: 1001; transition: opacity 0.3s; opacity: 0; }
+        #back-to-exercise-btn:hover { background: var(--color-warm-cream); color: var(--color-walnut-shadow); }
 
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } .container { padding: 1rem; }
+            h1 { font-size: 41px; } h2 { font-size: 31px; } p { font-size: 24px; }
+            .nav-links { display: none; } .container { padding: 0 12px; }
             canvas { width: 100% !important; height: auto !important; }
-            .nav-links { gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
 <nav class="navbar">
+    <a href="#" class="nav-logo">PROBABILIDAD</a>
     <div class="nav-links">
-        <a href="#discretas">1. Discretas</a>
-        <a href="#poisson">2. Proceso Poisson</a>
-        <a href="#continuas">3. Uniforme y Normal</a>
-        <a href="#roadmap">Roadmap</a>
+        <a href="#discretas">Discretas</a>
+        <a href="#poisson">Poisson</a>
+        <a href="#continuas">Continuas</a>
+        <a href="#guia">Guía</a>
         <a href="#ejercicios">Ejercicios</a>
     </div>
-    <button id="theme-toggle" class="theme-btn">🌙</button>
 </nav>
 
 <header class="hero">
     <h1>Modelos Probabilísticos</h1>
     <p>Entendé las distribuciones de forma intuitiva, jugando con los parámetros y viendo cómo cambia todo en tiempo real.</p>
+    <a href="#discretas" class="ghost-btn">Explorar</a>
 </header>
 
 <button id="back-to-exercise-btn">↩ Volver al ejercicio</button>
@@ -159,7 +167,7 @@
 
         <div class="card" id="bernoulli">
             <h3>Bernoulli</h3>
-            <p><strong>El concepto simple:</strong> Es el experimento más básico. Tirar una moneda una sola vez. Solo hay dos resultados posibles: Éxito (probabilidad $p$) o Fracaso (probabilidad $q = 1-p$). La variable solo puede valer 1 (éxito) o 0 (fracaso).</p>
+            <p>Es el experimento más básico. Tirar una moneda una sola vez. Solo hay dos resultados posibles: Éxito (probabilidad $p$) o Fracaso (probabilidad $q = 1-p$). La variable solo puede valer 1 (éxito) o 0 (fracaso).</p>
             <div class="formula-block">
                 $P(X=1) = p$ &nbsp;&nbsp; $P(X=0) = q = 1-p$ &nbsp;&nbsp; Media ($\mu$) = $p$ &nbsp;&nbsp; Varianza ($\sigma^2$) = $p \cdot q$             </div>
             <div class="example-block">
@@ -174,7 +182,7 @@
 
         <div class="card" id="binomial">
             <h3>Binomial</h3>
-            <p><strong>El concepto simple:</strong> Es repetir un experimento Bernoulli $n$ veces seguidas y contar cuántos éxitos obtuviste en total. Reemplazamos la moneda por un dado, o una persona respondiendo una encuesta, etc.</p>
+            <p>Es repetir un experimento Bernoulli $n$ veces seguidas y contar cuántos éxitos obtuviste en total.</p>
             <div class="formula-block">
                 $P(X=k) = \binom{n}{k} p^k q^{n-k}$ &nbsp;&nbsp; Media ($\mu$) = $np$ &nbsp;&nbsp; Varianza ($\sigma^2$) = $npq$             </div>
             <div class="example-block">
@@ -186,19 +194,9 @@
             <div class="interactive-box">
                 <h4>Probalo vos mismo:</h4>
                 <p>Cambiá la cantidad de tiros ($n$) y la probabilidad de éxito ($p$). Mirá cómo la "campana" se mueve y se deforma.</p>
-                <div class="control-group">
-                    <label for="bin_n">n (tiros):</label>
-                    <input type="range" id="bin_n" min="1" max="30" step="1" value="6">
-                    <span class="value-display" id="bin_n_val">6</span>
-                </div>
-                <div class="control-group">
-                    <label for="bin_p">p (éxito):</label>
-                    <input type="range" id="bin_p" min="0.01" max="0.99" step="0.01" value="0.45">
-                    <span class="value-display" id="bin_p_val">0.45</span>
-                </div>
-                <div class="canvas-container">
-                    <canvas id="binomialCanvas" width="400" height="250"></canvas>
-                </div>
+                <div class="control-group"><label for="bin_n">n (tiros):</label><input type="range" id="bin_n" min="1" max="30" step="1" value="6"><span class="value-display" id="bin_n_val">6</span></div>
+                <div class="control-group"><label for="bin_p">p (éxito):</label><input type="range" id="bin_p" min="0.01" max="0.99" step="0.01" value="0.45"><span class="value-display" id="bin_p_val">0.45</span></div>
+                <div class="canvas-container"><canvas id="binomialCanvas" width="400" height="250"></canvas></div>
             </div>
 
             <div class="tp-links">
@@ -209,7 +207,7 @@
 
         <div class="card" id="geometrica">
             <h3>Geométrica</h3>
-            <p><strong>El concepto simple:</strong> Seguís tirando la moneda hasta que te salga Cara por PRIMERA VEZ. La variable cuenta "cuántos tiros necesité hasta el primer éxito".</p>
+            <p>Seguís tirando la moneda hasta que te salga Cara por PRIMERA VEZ. La variable cuenta "cuántos tiros necesité hasta el primer éxito".</p>
             <div class="formula-block">$P(X=k) = p \cdot q^{k-1}$ &nbsp;&nbsp; Media ($\mu$) = $1/p$</div>
             <div class="example-block">
                 <h4>Ejemplo (TP3 - Ej 3.6)</h4>
@@ -224,7 +222,7 @@
 
         <div class="card" id="hipergeometrica">
             <h3>Hipergeométrica</h3>
-            <p><strong>El concepto simple:</strong> Es la prima hermana de la Binomial, pero acá <strong>NO hay reposición</strong>. Imaginate que sacás bolillas de una bolsa: si sacás una y no la devolvés, las probabilidades de las siguientes sacadas cambian porque hay menos bolillas.</p>
+            <p>Es la prima hermana de la Binomial, pero acá NO hay reposición. Imaginate que sacás bolillas de una bolsa: si sacás una y no la devolvés, las probabilidades de las siguientes sacadas cambian porque hay menos bolillas.</p>
             <div class="formula-block">$P(X=k) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}$</div>
             <p>Donde $N$ es el total, $K$ son los "éxitos" en la bolsa, $n$ los que sacás, y $k$ los éxitos que querés encontrar.</p>
             <div class="example-block">
@@ -243,12 +241,12 @@
     <!-- CAMINO 2: PROCESO POISSON -->
     <!-- ========================================== -->
     <section id="poisson">
-        <h2>2. Proceso Poisson (Poisson, Exponencial, Gamma)</h2>
+        <h2>2. Proceso Poisson</h2>
         <p>Este proceso es mágico. Modela cosas que ocurren a lo largo del tiempo o del espacio continuamente. Lo dividimos en tres partes según qué quieras medir.</p>
 
         <div class="card poisson" id="poisson-dist">
             <h3>Poisson (Cuento eventos en un tiempo T)</h3>
-            <p><strong>El concepto simple:</strong> Contás cuántos coches pasan por una esquina en 1 hora. $\lambda$ (lambda) es la tasa promedio (ej. 5 coches por hora).</p>
+            <p>Contás cuántos coches pasan por una esquina en 1 hora. $\lambda$ (lambda) es la tasa promedio (ej. 5 coches por hora).</p>
             <div class="formula-block">$P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}$ &nbsp;&nbsp; Media = $\lambda$ &nbsp;&nbsp; Varianza = $\lambda$</div>
             <div class="example-block">
                 <h4>Ejemplo (TP3 - Ej 3.9)</h4>
@@ -263,7 +261,7 @@
 
         <div class="card poisson" id="exponencial">
             <h3>Exponencial (Tiempo entre eventos)</h3>
-            <p><strong>El concepto simple:</strong> En vez de contar cuántos coches pasan en 1 hora, medís <strong>cuántos minutos pasan entre un coche y el siguiente</strong>. ¡Ojo! El parámetro $\lambda$ es el mismo que usaste en Poisson.</p>
+            <p>En vez de contar cuántos coches pasan en 1 hora, medís cuántos minutos pasan entre un coche y el siguiente. ¡Ojo! El parámetro $\lambda$ es el mismo que usaste en Poisson.</p>
             <div class="formula-block">$P(T \le t) = F(t) = 1 - e^{-\lambda t}$ &nbsp;&nbsp; Media = $1/\lambda$</div>
             <p><strong>La falta de memoria:</strong> Si esperaste 10 minutos y no vino ningún coche, la probabilidad de que venga en los próximos 5 minutos es exactamente la misma que si recién llegás a la esquina. ¡El proceso no tiene memoria!</p>
             <div class="example-block">
@@ -279,7 +277,7 @@
 
         <div class="card poisson" id="gamma">
             <h3>Gamma (Tiempo hasta el K-ésimo evento)</h3>
-            <p><strong>El concepto simple:</strong> Generaliza la Exponencial. La Exponencial cuenta el tiempo hasta el 1er evento. Gamma cuenta el tiempo hasta el evento número $K$. Si $K=1$, Gamma es igual a Exponencial.</p>
+            <p>Generaliza la Exponencial. La Exponencial cuenta el tiempo hasta el 1er evento. Gamma cuenta el tiempo hasta el evento número $K$. Si $K=1$, Gamma es igual a Exponencial.</p>
             <div class="tp-links">
                 <strong>Practicar con ejercicios:</strong>
                 <a href="#ej-3-25" class="link-btn">3.25</a><a href="#ej-3-26" class="link-btn">3.26</a><a href="#ej-3-27" class="link-btn">3.27</a><a href="#ej-3-30" class="link-btn">3.30</a>
@@ -305,8 +303,13 @@
         
         <div class="card continuous" id="uniforme">
             <h3>Uniforme</h3>
-            <p><strong>El concepto simple:</strong> Todos los resultados tienen exactamente la misma probabilidad. Como tirar un dado de 6 caras (perfecto): la chance de que salga 1 es la misma que la de que salga 6. En variables continuas, es como elegir un número al azar entre $a$ y $b$.</p>
+            <p>Todos los resultados tienen exactamente la misma probabilidad. Como tirar un dado de 6 caras (perfecto): la chance de que salga 1 es la misma que la de que salga 6. En variables continuas, es como elegir un número al azar entre $a$ y $b$.</p>
             <div class="formula-block">$f(x) = \frac{1}{b-a}$ &nbsp;&nbsp; si $a \le x \le b$ &nbsp;&nbsp; Media = $\frac{a+b}{2}$</div>
+            <div class="example-block">
+                <h4>Ejemplo (TP3 - Ej 3.16)</h4>
+                <p>Una estación da la hora entre las 6:00 y las 24:00 (18 horas). Si sintonizás al azar, ¿cuánto esperás para escuchar la hora? Menos de 10 minutos (1/6 de hora).</p>
+                <p>Probabilidad = Base $\times$ Altura del rectángulo = $(1/6) \times \frac{1}{18} = \frac{1}{108} \approx 0.009$.</p>
+            </div>
             <div class="tp-links">
                 <strong>Practicar con ejercicios:</strong>
                 <a href="#ej-3-16" class="link-btn">3.16</a><a href="#ej-3-19" class="link-btn">3.19</a><a href="#ej-3-22" class="link-btn">3.22</a><a href="#ej-3-23" class="link-btn">3.23</a>
@@ -315,58 +318,92 @@
 
         <div class="card continuous" id="normal">
             <h3>Normal (La Campana de Gauss)</h3>
-            <p><strong>El concepto simple:</strong> Es la más famosa. Representa cosas donde la mayoría está en el medio y los extremos son raros (ej. altura de personas, notas de un examen). La media ($\mu$) te dice dónde está el centro, y el desvío ($\sigma$) te dice qué tan "ancha" es la campana.</p>
+            <p>Es la más famosa. Representa cosas donde la mayoría está en el medio y los extremos son raros (ej. altura de personas, notas de un examen). La media ($\mu$) te dice dónde está el centro, y el desvío ($\sigma$) te dice qué tan "ancha" es la campana.</p>
+            
+            <h4>Propiedades de la Campana</h4>
+            <ul>
+                <li>Simétrica respecto a la media $\mu$.</li>
+                <li>Tiene su máximo absoluto en $x = \mu$.</li>
+                <li>Puntos de inflexión en $\mu + \sigma$ y $\mu - \sigma$.</li>
+                <li>Asíntota al eje X (nunca lo toca).</li>
+            </ul>
+
             <p>Para calcular probabilidades, siempre "estandarizamos" restando la media y dividiendo por el desvío, pasando todo a la Normal Estándar ($Z \sim N(0,1)$).</p>
             <div class="formula-block">$Z = \frac{X - \mu}{\sigma}$</div>
+
+            <div class="example-block">
+                <h4>Ejemplo 1 (Clase 4 - IQ)</h4>
+                <p>Coeficientes intelectuales de 600 aspirantes se distribuyen normal con media 115 y desvío 12. $X \sim N(115, 12)$.</p>
+                <p>Queremos $P(X > 120)$. Estandarizamos: $Z = \frac{120 - 115}{12} = 0.41$.</p>
+                <p>Buscando en tabla: $P(Z > 0.41) = 1 - P(Z \le 0.41) = 1 - 0.6591 = 0.3409$.</p>
+            </div>
+
+            <div class="example-block">
+                <h4>Ejemplo 2 (Clase 4 - Barras de acero)</h4>
+                <p>Longitud de barras: $\mu=31.6$, $\sigma=0.45$. Hallar el intervalo que contiene el 95% central.</p>
+                <p>El 95% central deja 2.5% en cada punta. Buscamos en tabla el Z que acumula 0.975, que es $Z = 1.96$.</p>
+                <p>Desestandarizamos los límites: $X_{min} = -1.96 \cdot 0.45 + 31.6 = 30.718$ y $X_{max} = 1.96 \cdot 0.45 + 31.6 = 32.482$.</p>
+            </div>
+
+            <div class="interactive-box">
+                <h4>Laboratorio de Campana Normal</h4>
+                <p>Mové la media ($\mu$) para correr la campana, y el desvío ($\sigma$) para hacerla más alta/chatita o ancha/estrecha.</p>
+                <div class="control-group"><label for="norm_mu">Media ($\mu$):</label><input type="range" id="norm_mu" min="-10" max="10" step="1" value="0"><span class="value-display" id="norm_mu_val">0</span></div>
+                <div class="control-group"><label for="norm_sigma">Desvío ($\sigma$):</label><input type="range" id="norm_sigma" min="0.5" max="5" step="0.1" value="1"><span class="value-display" id="norm_sigma_val">1.0</span></div>
+                <div class="control-group"><label for="norm_x">Valor X:</label><input type="range" id="norm_x" min="-10" max="10" step="0.1" value="1"><span class="value-display" id="norm_x_val">1.0</span></div>
+                <div class="canvas-container" style="flex-direction: column; align-items: center;">
+                    <canvas id="normalCanvas" width="500" height="280"></canvas>
+                    <p id="normal_prob_text" style="font-family: var(--font-halyard); font-weight: 500; margin-top: 10px; color: var(--color-warm-cream);">P(X ≤ x): --</p>
+                </div>
+            </div>
+
             <div class="tp-links">
                 <strong>Practicar con ejercicios:</strong>
                 <a href="#ej-4-1" class="link-btn">4.1 a 4.4</a><a href="#ej-4-9" class="link-btn">4.9</a><a href="#ej-4-11" class="link-btn">4.11</a><a href="#ej-4-14" class="link-btn">4.14</a>
             </div>
         </div>
-
-        <div class="interactive-box">
-            <h4>Laboratorio de Campana Normal</h4>
-            <p>Mové la media ($\mu$) para correr la campana, y el desvío ($\sigma$) para hacerla más alta/chatita o ancha/estrecha. Podés pedir un valor $X$ y ver qué probabilidad hay de que sea menor a ese valor (área sombreada).</p>
-            <div class="control-group"><label for="norm_mu">Media ($\mu$):</label><input type="range" id="norm_mu" min="-10" max="10" step="1" value="0"><span class="value-display" id="norm_mu_val">0</span></div>
-            <div class="control-group"><label for="norm_sigma">Desvío ($\sigma$):</label><input type="range" id="norm_sigma" min="0.5" max="5" step="0.1" value="1"><span class="value-display" id="norm_sigma_val">1.0</span></div>
-            <div class="control-group"><label for="norm_x">Valor X:</label><input type="range" id="norm_x" min="-10" max="10" step="0.1" value="1"><span class="value-display" id="norm_x_val">1.0</span></div>
-            <div class="canvas-container" style="flex-direction: column; align-items: center;">
-                <canvas id="normalCanvas" width="500" height="280"></canvas>
-                <p id="normal_prob_text" style="font-family: 'Inter'; font-weight: 700; margin-top: 10px;">P(X ≤ x): --</p>
-            </div>
-        </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- ROADMAP -->
+    <!-- GUÍA DE IDENTIFICACIÓN -->
     <!-- ========================================== -->
-    <section id="roadmap">
-        <h2>Roadmap de Trabajos Prácticos</h2>
-        <p>Guía estratégica para resolver los TPs sin perderte. Sigue estos pasos en orden.</p>
-        <div class="roadmap-step">
-            <h4>Paso 1: Descubrir qué distribución usar</h4>
-            <ul>
-                <li>¿Cuento éxitos en $n$ tiros fijos y devolviendo? $\rightarrow$ <strong>Binomial</strong></li>
-                <li>¿Cuento éxitos en $n$ tiros fijos SIN devolver? $\rightarrow$ <strong>Hipergeométrica</strong></li>
-                <li>¿Cuento cuántos tiros hasta el 1er éxito? $\rightarrow$ <strong>Geométrica</strong></li>
-                <li>¿Cuento eventos en un tiempo/espacio continuo? $\rightarrow$ <strong>Poisson</strong></li>
-                <li>¿Mido el tiempo entre eventos? $\rightarrow$ <strong>Exponencial</strong></li>
-                <li>¿Mido el tiempo hasta el K-ésimo evento? $\rightarrow$ <strong>Gamma</strong></li>
-                <li>¿Todo es igual de probable en un rango? $\rightarrow$ <strong>Uniforme</strong></li>
-                <li>¿Hay una campana alrededor de un promedio? $\rightarrow$ <strong>Normal</strong></li>
-            </ul>
-        </div>
-        <div class="roadmap-step">
-            <h4>Paso 2: Atacar el TP3 (Discretas y Proceso Poisson)</h4>
-            <p>La clave acá es ajustar el parámetro $\lambda$ al intervalo de tiempo que te piden. No es lo mismo 2 accidentes por media hora que 2 accidentes por hora.</p>
-            <p><span class="badge badge-rec">Recomendados para empezar:</span> 3.1, 3.7, 3.16, 3.20.</p>
-            <p><span class="badge badge-rec">Reto de Gamma:</span> 3.25 y 3.30.</p>
-        </div>
-        <div class="roadmap-step">
-            <h4>Paso 3: Atacar el TP4 (Normal)</h4>
-            <p>La regla de oro es: siempre pasá a $Z$ antes de ir a la tabla. $Z = (X-\mu)/\sigma$.</p>
-            <p><span class="badge badge-rec">Recomendados para practicar tabla:</span> 4.1, 4.2, 4.3.</p>
-            <p><span class="badge badge-rec">Recomendados para practicar inversión:</span> 4.4, 4.10, 4.11.</p>
+    <section id="guia">
+        <h2>Guía de Identificación</h2>
+        <p>Si estás en un examen y no sabés qué distribución usar, busá estas palabras clave en el enunciado:</p>
+        
+        <div class="exercise-grid">
+            <div class="card">
+                <h4>Binomial</h4>
+                <p>Si el enunciado dice: "se repite $n$ veces", "con reposición", "probabilidad de éxito constante $p$".</p>
+            </div>
+            <div class="card">
+                <h4>Hipergeométrica</h4>
+                <p>Si el enunciado dice: "se extrae SIN reposición", "de un lote de $N$ elementos", "muestra de tamaño $n$".</p>
+            </div>
+            <div class="card">
+                <h4>Geométrica</h4>
+                <p>Si el enunciado dice: "hasta el PRIMER éxito", "se repite hasta que ocurra", "primer evento".</p>
+            </div>
+            <div class="card">
+                <h4>Poisson</h4>
+                <p>Si el enunciado dice: "tasa promedio", "eventos por unidad de tiempo/espacio", "en un intervalo de longitud $t$".</p>
+            </div>
+            <div class="card">
+                <h4>Exponencial</h4>
+                <p>Si el enunciado dice: "tiempo entre eventos", "vida útil", "duración hasta la falla", "falta de memoria".</p>
+            </div>
+            <div class="card">
+                <h4>Gamma</h4>
+                <p>Si el enunciado dice: "tiempo hasta el k-ésimo evento", "tercer suceso", "hasta ver $k$ eventos".</p>
+            </div>
+            <div class="card">
+                <h4>Uniforme</h4>
+                <p>Si el enunciado dice: "se distribuye uniformemente", "al azar en un intervalo $[a, b]$", "misma probabilidad en todo el rango".</p>
+            </div>
+            <div class="card">
+                <h4>Normal</h4>
+                <p>Si el enunciado dice: "distribución normal", "media $\mu$ y desvío $\sigma$", "campana de Gauss", "se distribuye aproximadamente normal".</p>
+            </div>
         </div>
     </section>
 
@@ -374,18 +411,18 @@
     <!-- BIBLIOTECA DE EJERCICIOS COMPLETOS -->
     <!-- ========================================== -->
     <section id="ejercicios">
-        <h2>Biblioteca de Ejercicios (TP3 y TP4)</h2>
-        <p>Todos los enunciados íntegros. Si te trabás, apretá el botón "Ayuda" para ver una pista de cómo encarar el problema.</p>
+        <h2>Biblioteca de Ejercicios</h2>
+        <p>Todos los enunciados íntegros. Si te trabás, apretá el botón "Ayuda" para ver una pista.</p>
 
-        <h3 style="color: var(--accent-discrete);">TP3 - Modelos Discretos y Continuos</h3>
+        <h3 style="color: var(--color-ember-accent); margin-top: 41px;">TP3 - Modelos Discretos y Continuos</h3>
         <div class="exercise-grid">
             <div class="exercise-card" id="ej-3-1">
-                <h4>3.1 <span class="badge badge-rec">Importante</span></h4>
+                <h4>3.1 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">Ciertos estados contables pasan por cinco secciones de verificación antes de ser aprobados. La probabilidad de que una sección cometa un error es de 0,05. Se sabe que los errores de una sección no influyen sobre los de las otras y no se comete más de un error por sección. Hallar la probabilidad de que:<br><br>a) se cometan menos de tres errores.<br>b) no se comentan errores.<br>c) se cometan exactamente tres errores.</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-1')">Ver Ayuda 💡</button>
                 <div id="h-3-1" class="hint-box"><strong>Pista:</strong> Es una Binomial. Identificá n=5 (secciones) y p=0.05. Para "menos de 3" sumá P(0)+P(1)+P(2). Para "exactamente 3", usá la fórmula directa.</div>
-                <div style="margin-top: 1rem;"><a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-1')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-1')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-2">
                 <h4>3.2</h4>
@@ -393,7 +430,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-2')">Ver Ayuda 💡</button>
                 <div id="h-3-2" class="hint-box"><strong>Pista:</strong> Binomial(n=6, p=0.45). "Al menos 4" es P(4)+P(5)+P(6). "A lo sumo 2" es P(0)+P(1)+P(2). Esperanza: n*p, Desvío: sqrt(n*p*q).</div>
-                <div style="margin-top: 1rem;"><a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-2')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-2')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-3">
                 <h4>3.3</h4>
@@ -401,7 +438,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-3')">Ver Ayuda 💡</button>
                 <div id="h-3-3" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=25, K=15, n=4). Ojo con el inciso a: "misma cantidad" significa 2 y 2. ¡Acordate de combinar las marcas!</div>
-                <div style="margin-top: 1rem;"><a href="#hipergeometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-3')">Hipergeométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-3')">Hipergeométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-4">
                 <h4>3.4</h4>
@@ -409,7 +446,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-4')">Ver Ayuda 💡</button>
                 <div id="h-3-4" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=15, K=5, n=3). Inciso c: "al menos 1" es más fácil calcularlo como 1 - P(ninguno).</div>
-                <div style="margin-top: 1rem;"><a href="#hipergeometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-4')">Hipergeométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-4')">Hipergeométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-5">
                 <h4>3.5</h4>
@@ -417,7 +454,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-5')">Ver Ayuda 💡</button>
                 <div id="h-3-5" class="hint-box"><strong>Pista:</strong> Hipergeométrica(N=12, K=5, n=2). "Solamente una" es P(X=1). "A lo sumo una" es P(0)+P(1).</div>
-                <div style="margin-top: 1rem;"><a href="#hipergeometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-5')">Hipergeométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#hipergeometrica" class="link-btn" onclick="setReturnExercise('ej-3-5')">Hipergeométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-6">
                 <h4>3.6</h4>
@@ -425,15 +462,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-6')">Ver Ayuda 💡</button>
                 <div id="h-3-6" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.1). Buscás P(X=19). Significa que fallaste 18 veces (0.9^18) y en la 19 tuviste éxito (0.1).</div>
-                <div style="margin-top: 1rem;"><a href="#geometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-6')">Geométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-6')">Geométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-7">
-                <h4>3.7 <span class="badge badge-rec">Importante</span></h4>
+                <h4>3.7 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">Una máquina fabrica clavos con un promedio del 1% de defectuosos, ¿cuál es la probabilidad de que haya 10 defectuosos en una muestra de 50?</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-7')">Ver Ayuda 💡</button>
                 <div id="h-3-7" class="hint-box"><strong>Pista:</strong> Podés usar Binomial(n=50, p=0.01) o Poisson (lambda = n*p = 0.5). Poisson es más rápido de calcular.</div>
-                <div style="margin-top: 1rem;"><a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-7')">Poisson</a> <a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-7')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-7')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-7')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-8">
                 <h4>3.8</h4>
@@ -441,7 +478,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-8')">Ver Ayuda 💡</button>
                 <div id="h-3-8" class="hint-box"><strong>Pista:</strong> Binomial(n=400, p=0.02) o Poisson(lambda=8). Para detener: P(X>=12). Para que siga: P(X<12).</div>
-                <div style="margin-top: 1rem;"><a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-8')">Binomial</a> <a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-8')">Poisson</a></div>
+                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-8')">Binomial</a> <a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-8')">Poisson</a></div>
             </div>
             <div class="exercise-card" id="ej-3-9">
                 <h4>3.9</h4>
@@ -449,7 +486,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-9')">Ver Ayuda 💡</button>
                 <div id="h-3-9" class="hint-box"><strong>Pista:</strong> Poisson. Tasa base: 1/500 por hora. Temporada: 3*30*10 = 900 horas. Nuevo lambda = 900/500 = 1.8. A) P(X=0), B) P(0)+P(1)+P(2), C) La media es lambda.</div>
-                <div style="margin-top: 1rem;"><a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-9')">Poisson</a></div>
+                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-9')">Poisson</a></div>
             </div>
             <div class="exercise-card" id="ej-3-10">
                 <h4>3.10</h4>
@@ -457,7 +494,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-10')">Ver Ayuda 💡</button>
                 <div id="h-3-10" class="hint-box"><strong>Pista:</strong> Binomial(n=5, p=0.4). A) P(0)+P(1). B) 1 - P(a lo sumo 1). C) P(5). D) P(0).</div>
-                <div style="margin-top: 1rem;"><a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-10')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-10')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-11">
                 <h4>3.11</h4>
@@ -465,7 +502,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-11')">Ver Ayuda 💡</button>
                 <div id="h-3-11" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.4). "Menos de 5 negativas" significa que el éxito ocurre en el intento 1, 2, 3 o 4. Sumá P(X=1) hasta P(X=4). Asumir independencia.</div>
-                <div style="margin-top: 1rem;"><a href="#geometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-11')">Geométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-11')">Geométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-12">
                 <h4>3.12</h4>
@@ -473,7 +510,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-12')">Ver Ayuda 💡</button>
                 <div id="h-3-12" class="hint-box"><strong>Pista:</strong> Binomial(n=50, p=0.02) o Poisson(lambda=1). "Hasta 10" es P(X<=10).</div>
-                <div style="margin-top: 1rem;"><a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-12')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-12')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-13">
                 <h4>3.13</h4>
@@ -481,7 +518,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-13')">Ver Ayuda 💡</button>
                 <div id="h-3-13" class="hint-box"><strong>Pista:</strong> Poisson. Lambda_4000 = 2, Lambda_5000 = 2.5. A) P(X=0). B) P(0)+P(1).</div>
-                <div style="margin-top: 1rem;"><a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-13')">Poisson</a></div>
+                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-13')">Poisson</a></div>
             </div>
             <div class="exercise-card" id="ej-3-14">
                 <h4>3.14</h4>
@@ -489,7 +526,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-14')">Ver Ayuda 💡</button>
                 <div id="h-3-14" class="hint-box"><strong>Pista:</strong> Geométrica(p=0.3). Buscás P(X < 7). Significa que el primer alemán aparece en el intento 1, 2, 3, 4, 5 o 6.</div>
-                <div style="margin-top: 1rem;"><a href="#geometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-14')">Geométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-14')">Geométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-15">
                 <h4>3.15</h4>
@@ -497,15 +534,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-15')">Ver Ayuda 💡</button>
                 <div id="h-3-15" class="hint-box"><strong>Pista:</strong> A) Primero Poisson(lambda=2) para sacar p=P(lámina tenga defecto) = 1 - P(0). Luego Binomial(n=10, k=3). B) Geométrica. C) Poisson: P(X>=4).</div>
-                <div style="margin-top: 1rem;"><a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-15')">Poisson</a> <a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-15')">Binomial</a> <a href="#geometrica" class="link-btn concept" onclick="setReturnExercise('ej-3-15')">Geométrica</a></div>
+                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-15')">Poisson</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-15')">Binomial</a> <a href="#geometrica" class="link-btn" onclick="setReturnExercise('ej-3-15')">Geométrica</a></div>
             </div>
             <div class="exercise-card" id="ej-3-16">
-                <h4>3.16 <span class="badge badge-rec">Importante</span></h4>
+                <h4>3.16 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">Una estación de radio da la hora exacta cuando se cumple cada hora, desde las 6:00 hs hasta las 24:00 hs. ¿Cuál es la probabilidad de que una persona que está escuchando esa estación tenga que esperar menos de 10 minutos para escuchar la hora exacta, si la hora a la que sintoniza la estación se distribuye uniformemente en el intervalo:<br><br>a) de 6:00 hs a 24:00 hs?<br>b) de 8:00 hs a 18:00 hs?<br>c) de 7:30 hs a 17:30 hs?<br>d) de 7:30 hs a 17:00 hs?</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-16')">Ver Ayuda 💡</button>
                 <div id="h-3-16" class="hint-box"><strong>Pista:</strong> Uniforme. La probabilidad es Base * Altura. La altura es 1 / (longitud del intervalo en horas). La base son los 10 minutos (1/6 de hora) donde "ganás". Ojo con los incisos donde el intervalo no es exactamente de horas enteras.</div>
-                <div style="margin-top: 1rem;"><a href="#uniforme" class="link-btn concept" onclick="setReturnExercise('ej-3-16')">Uniforme</a></div>
+                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-16')">Uniforme</a></div>
             </div>
             <div class="exercise-card" id="ej-3-17">
                 <h4>3.17</h4>
@@ -513,7 +550,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-17')">Ver Ayuda 💡</button>
                 <div id="h-3-17" class="hint-box"><strong>Pista:</strong> Exponencial. El valor esperado es 1/lambda. Calculá F(1/lambda) = P(T <= 1/lambda).</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-17')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-17')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-18">
                 <h4>3.18</h4>
@@ -521,7 +558,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-18')">Ver Ayuda 💡</button>
                 <div id="h-3-18" class="hint-box"><strong>Pista:</strong> La mediana deja 50% a cada lado. F(m) = 0.5. Entonces 1 - e^(-lambda*m) = 0.5. Despejá m. La esperanza es 1/lambda.</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-18')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-18')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-19">
                 <h4>3.19</h4>
@@ -529,15 +566,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-19')">Ver Ayuda 💡</button>
                 <div id="h-3-19" class="hint-box"><strong>Pista:</strong> Uniforme. Llamá X a la distancia a Tandil. La distancia a Rauch es (d - X). Planteá la inecuación X / (d - X) >= 3 y despejá X. Luego calculá la longitud de ese intervalo dividida por d.</div>
-                <div style="margin-top: 1rem;"><a href="#uniforme" class="link-btn concept" onclick="setReturnExercise('ej-3-19')">Uniforme</a></div>
+                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-19')">Uniforme</a></div>
             </div>
             <div class="exercise-card" id="ej-3-20">
-                <h4>3.20 <span class="badge badge-rec">Importante</span></h4>
+                <h4>3.20 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">Designamos con 𝑡 la duración (en meses) de una lámpara de bajo consumo, cuya densidad es 𝒇(𝒕) = 𝒂 ⋅ 𝒆−𝒂𝒕, 𝑡 > 0. Si 𝑎 = 0,2. ¿Por cuántos meses debe el vendedor de las lámparas garantizarlas, si desea que la probabilidad de que cumplan la garantía sea 0,80?</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-20')">Ver Ayuda 💡</button>
                 <div id="h-3-20" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2). Buscás un tiempo t tal que P(T <= t) = 0.80. Usá 1 - e^(-0.2*t) = 0.8 y despejá t.</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-20')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-20')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-21">
                 <h4>3.21</h4>
@@ -545,7 +582,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-21')">Ver Ayuda 💡</button>
                 <div id="h-3-21" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=1/360). A) F(180). B) 1 - F(720). C) Binomial(n=3, p=prob de que dure menos de 180hs).</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-21')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-21')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-22">
                 <h4>3.22</h4>
@@ -553,7 +590,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-22')">Ver Ayuda 💡</button>
                 <div id="h-3-22" class="hint-box"><strong>Pista:</strong> Uniforme. Para que formen triángulo, la suma de dos lados debe ser mayor al tercero. Planteá |AX - BX| < AC. Acordate que AX + BX = a.</div>
-                <div style="margin-top: 1rem;"><a href="#uniforme" class="link-btn concept" onclick="setReturnExercise('ej-3-22')">Uniforme</a></div>
+                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-22')">Uniforme</a></div>
             </div>
             <div class="exercise-card" id="ej-3-23">
                 <h4>3.23</h4>
@@ -561,7 +598,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-23')">Ver Ayuda 💡</button>
                 <div id="h-3-23" class="hint-box"><strong>Pista:</strong> Uniforme(150, 300). Calculá P(T<200) y P(T>200). Utilidad esperada = P(T<200)*4 + P(T>200)*1. (4 = 5-1, 1 = 2-1).</div>
-                <div style="margin-top: 1rem;"><a href="#uniforme" class="link-btn concept" onclick="setReturnExercise('ej-3-23')">Uniforme</a></div>
+                <div style="margin-top: 12px;"><a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-23')">Uniforme</a></div>
             </div>
             <div class="exercise-card" id="ej-3-24">
                 <h4>3.24</h4>
@@ -569,15 +606,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-24')">Ver Ayuda 💡</button>
                 <div id="h-3-24" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=2). Media = 1/2, Desvío = 1/2. Buscás P(|X - 0.5| > 1.5). Como X no es negativa, esto es P(X > 2).</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-24')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-24')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-25">
-                <h4>3.25 <span class="badge badge-rec">Reto</span></h4>
+                <h4>3.25 <span class="badge">Reto</span></h4>
                 <p class="exercise-text collapsed">En la cima del cerro Uritorco el tiempo en minutos que transcurre entre la aparición de dos OVNI es una v. a. exponencial con media de cuarenta minutos. Calcular la probabilidad de que:<br><br>a) deba esperar a lo sumo 50 minutos para ver 3 platillos.<br>b) deba esperar otros 30 minutos para ver un platillo si ha esperado ya más de 15 minutos.</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-25')">Ver Ayuda 💡</button>
                 <div id="h-3-25" class="hint-box"><strong>Pista:</strong> A) Gamma(k=3, lambda=1/40). P(T<=50). B) ¡Falta de memoria! Exponencial. P(T>30).</div>
-                <div style="margin-top: 1rem;"><a href="#gamma" class="link-btn concept" onclick="setReturnExercise('ej-3-25')">Gamma</a> <a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-25')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-25')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-25')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-26">
                 <h4>3.26</h4>
@@ -585,7 +622,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-26')">Ver Ayuda 💡</button>
                 <div id="h-3-26" class="hint-box"><strong>Pista:</strong> Gamma(k=r, lambda=1.5). Te piden la media, que es k / lambda.</div>
-                <div style="margin-top: 1rem;"><a href="#gamma" class="link-btn concept" onclick="setReturnExercise('ej-3-26')">Gamma</a></div>
+                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-26')">Gamma</a></div>
             </div>
             <div class="exercise-card" id="ej-3-27">
                 <h4>3.27</h4>
@@ -593,7 +630,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-27')">Ver Ayuda 💡</button>
                 <div id="h-3-27" class="hint-box"><strong>Pista:</strong> Gamma. A) k=2, lambda=1. P(T>=5). B) k=3, lambda=1. P(T>=5).</div>
-                <div style="margin-top: 1rem;"><a href="#gamma" class="link-btn concept" onclick="setReturnExercise('ej-3-27')">Gamma</a></div>
+                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-27')">Gamma</a></div>
             </div>
             <div class="exercise-card" id="ej-3-28">
                 <h4>3.28</h4>
@@ -601,7 +638,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-28')">Ver Ayuda 💡</button>
                 <div id="h-3-28" class="hint-box"><strong>Pista:</strong> Primero Exponencial(lambda=0.5) para hallar p=P(T<1). Luego Binomial(n=8, k=3) con esa p.</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-28')">Exponencial</a> <a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-28')">Binomial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Exponencial</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-28')">Binomial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-29">
                 <h4>3.29</h4>
@@ -609,15 +646,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-29')">Ver Ayuda 💡</button>
                 <div id="h-3-29" class="hint-box"><strong>Pista:</strong> Exponencial(lambda=0.2 por dia). A) P(T>7)^3. B) Probabilidad Total.</div>
-                <div style="margin-top: 1rem;"><a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-29')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-29')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-30">
-                <h4>3.30 <span class="badge badge-rec">Reto</span></h4>
+                <h4>3.30 <span class="badge">Reto</span></h4>
                 <p class="exercise-text collapsed">En una cinta transportadora, los productos circulan a razón de 10 defectuosos por hora. Si un operario debe controlar el proceso:<br><br>a) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el tercer producto defectuoso?<br>b) ¿Cuál es la probabilidad de que espere menos de 10 minutos antes de ver el 1er. producto defectuoso?</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-30')">Ver Ayuda 💡</button>
                 <div id="h-3-30" class="hint-box"><strong>Pista:</strong> 10 min = 1/6 hora. A) Gamma(k=3, lambda=10). P(T < 1/6). B) Exponencial(lambda=10). P(T < 1/6).</div>
-                <div style="margin-top: 1rem;"><a href="#gamma" class="link-btn concept" onclick="setReturnExercise('ej-3-30')">Gamma</a> <a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-30')">Exponencial</a></div>
+                <div style="margin-top: 12px;"><a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-30')">Gamma</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-30')">Exponencial</a></div>
             </div>
             <div class="exercise-card" id="ej-3-31">
                 <h4>3.31 (Repaso)</h4>
@@ -625,11 +662,11 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-3-31')">Ver Ayuda 💡</button>
                 <div id="h-3-31" class="hint-box"><strong>Pista:</strong> Este es un buen momento para repasar Poisson, Exponencial, Binomial y Uniforme. Identificá bien la tasa (lambda) en cada caso antes de arrancar.</div>
-                <div style="margin-top: 1rem;"><a href="#poisson-dist" class="link-btn concept" onclick="setReturnExercise('ej-3-31')">Poisson</a> <a href="#exponencial" class="link-btn concept" onclick="setReturnExercise('ej-3-31')">Exp.</a> <a href="#binomial" class="link-btn concept" onclick="setReturnExercise('ej-3-31')">Binomial</a> <a href="#uniforme" class="link-btn concept" onclick="setReturnExercise('ej-3-31')">Unif.</a> <a href="#gamma" class="link-btn concept" onclick="setReturnExercise('ej-3-31')">Gamma</a></div>
+                <div style="margin-top: 12px;"><a href="#poisson-dist" class="link-btn" onclick="setReturnExercise('ej-3-31')">Poisson</a> <a href="#exponencial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Exp.</a> <a href="#binomial" class="link-btn" onclick="setReturnExercise('ej-3-31')">Binomial</a> <a href="#uniforme" class="link-btn" onclick="setReturnExercise('ej-3-31')">Unif.</a> <a href="#gamma" class="link-btn" onclick="setReturnExercise('ej-3-31')">Gamma</a></div>
             </div>
         </div>
 
-        <h3 style="color: var(--accent-continuous); margin-top: 3rem;">TP4 - Distribución Normal</h3>
+        <h3 style="color: var(--color-warm-cream); margin-top: 41px;">TP4 - Distribución Normal</h3>
         <div class="exercise-grid">
             <div class="exercise-card" id="ej-4-1">
                 <h4>4.1</h4>
@@ -637,7 +674,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-1')">Ver Ayuda 💡</button>
                 <div id="h-4-1" class="hint-box"><strong>Pista:</strong> Uso directo de la tabla Z. Para "entre dos valores", restá el acumulado menor del mayor.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-1')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-1')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-2">
                 <h4>4.2</h4>
@@ -645,7 +682,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-2')">Ver Ayuda 💡</button>
                 <div id="h-4-2" class="hint-box"><strong>Pista:</strong> Búsqueda inversa en la tabla Z. Si te dan P(Z>=k), pasalo a P(Z<=k) = 1 - P.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-2')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-2')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-3">
                 <h4>4.3</h4>
@@ -653,15 +690,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-3')">Ver Ayuda 💡</button>
                 <div id="h-4-3" class="hint-box"><strong>Pista:</strong> Estandarizar primero: Z = (X - 13)/10. Los incisos e y f son las reglas empíricas (aprox 95% y 99.7%).</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-3')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-3')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-4">
-                <h4>4.4 <span class="badge badge-rec">Importante</span></h4>
+                <h4>4.4 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">Dada una distribución normal con media 100 y desvío estándar 10, hallar:<br><br>a) 𝑥1 tal que 𝑃[𝑋 > 𝑥1] = 0,5<br>b) 𝑥2 tal que 𝑃[𝑋 ≤ 𝑥2] = 0,10<br>c) 𝑥3 tal que 𝑃[𝑋 ≥ 𝑥3] = 0,10<br>d) 𝑥4 tal que 𝑃[𝑋 ≥ 𝑥4] = 0,025</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-4')">Ver Ayuda 💡</button>
                 <div id="h-4-4" class="hint-box"><strong>Pista:</strong> Inversión de la Normal. Hallá el Z para la probabilidad dada, y luego despejá X usando X = mu + Z*sigma.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-4')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-4')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-5">
                 <h4>4.5</h4>
@@ -669,7 +706,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-5')">Ver Ayuda 💡</button>
                 <div id="h-4-5" class="hint-box"><strong>Pista:</strong> Ojo con las unidades! 2 y 3 minutos son 120 y 180 segundos. Estandarizá Z = (X - 130)/45.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-5')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-5')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-6">
                 <h4>4.6</h4>
@@ -677,7 +714,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-6')">Ver Ayuda 💡</button>
                 <div id="h-4-6" class="hint-box"><strong>Pista:</strong> El 99% central deja 0.5% en cada punta. Z_0.005 = -2.575. Usá (85 - 110) / sigma = -2.575 para hallar sigma. Luego el resto es directo.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-6')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-6')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-7">
                 <h4>4.7</h4>
@@ -685,7 +722,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-7')">Ver Ayuda 💡</button>
                 <div id="h-4-7" class="hint-box"><strong>Pista:</strong> Calculá P(X<10), P(10<=X<=15) y P(X>15) con la Normal. Esos serán los P(premio). Para Y, es una Bernoulli(p) donde p es la prob de tardar menos de 10hs.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-7')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-7')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-8">
                 <h4>4.8</h4>
@@ -693,15 +730,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-8')">Ver Ayuda 💡</button>
                 <div id="h-4-8" class="hint-box"><strong>Pista:</strong> Varianza=0.0004 => sigma=0.02. Defectuoso si |X-2| > 0.025. Corto: P(X < 1.975). Largo: P(X > 2.025).</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-8')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-8')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-9">
-                <h4>4.9 <span class="badge badge-rec">Importante</span></h4>
+                <h4>4.9 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">El gasto diario por alimentos para familias de cuatro personas en la Provincia de Buenos Aires es de $300, con una desviación de $80. Suponiendo que los gastos diarios por alimentos están normalmente distribuidos:<br><br>a) ¿Qué porcentajes de estos gastos son inferiores $350?<br>b) ¿Qué porcentajes de estos gastos se encuentran entre $250 $350?<br>c) ¿Qué porcentajes de estos gastos se encuentran entre $250 y $400?<br>d) ¿Qué porcentajes de estos gastos son inferiores a $250 ó superiores a $400?<br>e) Determinar el gasto 𝑄1 y el 𝑄3.</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-9')">Ver Ayuda 💡</button>
                 <div id="h-4-9" class="hint-box"><strong>Pista:</strong> Para Q1 y Q3 usá los Z que dejan 25% a izquierda y 25% a derecha (Z=±0.67). Luego desestandarizá.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-9')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-9')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-10">
                 <h4>4.10</h4>
@@ -709,15 +746,15 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-10')">Ver Ayuda 💡</button>
                 <div id="h-4-10" class="hint-box"><strong>Pista:</strong> P(X > 17.5) = 0.8 => P(X < 17.5) = 0.2 => Z = -0.84. Plantear (17.5 - 21)/sigma = -0.84 y despejar sigma.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-10')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-10')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-11">
-                <h4>4.11 <span class="badge badge-rec">Importante</span></h4>
+                <h4>4.11 <span class="badge">Importante</span></h4>
                 <p class="exercise-text collapsed">El gerente de una pequeña estación postal está tratando de cuantificar el peso de la correspondencia semanal. En función de sus registros postula que el peso tiene una distribución normal y sabe que, en promedio, 100kg de cartas ingresan semanalmente y que el 90% de las veces el peso de la correspondencia está por debajo de 115kg.<br><br>a) ¿Cuál es la desviación estándar de esta distribución?<br>b) El 5% de las veces el peso de la correspondencia semanal es mayor a ¿qué valor?</p>
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-11')">Ver Ayuda 💡</button>
                 <div id="h-4-11" class="hint-box"><strong>Pista:</strong> P(X < 115) = 0.9 => Z = 1.28. Despejá sigma. Para el inciso b, buscá el Z que deja 95% a la izquierda (Z=1.645).</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-11')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-11')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-12">
                 <h4>4.12</h4>
@@ -725,7 +762,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-12')">Ver Ayuda 💡</button>
                 <div id="h-4-12" class="hint-box"><strong>Pista:</strong> Calculá P(0.05 < |D-4| < 0.08) y P(|D-4| > 0.08). Con esas probabilidades armás la distribución de la pérdida.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-12')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-12')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-13">
                 <h4>4.13</h4>
@@ -733,7 +770,7 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-13')">Ver Ayuda 💡</button>
                 <div id="h-4-13" class="hint-box"><strong>Pista:</strong> P(X<200)=0.0668 => Z=-1.5. Despejá la media. Para el inciso b, sumá 10% a los valores y recalculá Z.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-13')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-13')">Normal</a></div>
             </div>
             <div class="exercise-card" id="ej-4-14">
                 <h4>4.14</h4>
@@ -741,26 +778,22 @@
                 <button class="read-more-btn" onclick="toggleReadMore(this)">Leer más</button>
                 <button class="help-btn" onclick="toggleHint('h-4-14')">Ver Ayuda 💡</button>
                 <div id="h-4-14" class="hint-box"><strong>Pista:</strong> Prob condicional: P(A int B)/P(B). Varianza 0.2025 => sigma=0.45. El 25% inferior es el Q1. Para el inciso e, armá un sistema de 2 ecuaciones con los Z correspondientes a 5% y 2%.</div>
-                <div style="margin-top: 1rem;"><a href="#normal" class="link-btn concept" onclick="setReturnExercise('ej-4-14')">Normal</a></div>
+                <div style="margin-top: 12px;"><a href="#normal" class="link-btn" onclick="setReturnExercise('ej-4-14')">Normal</a></div>
             </div>
         </div>
     </section>
 </div>
 
 <script>
-    // --- TOGGLE READ MORE ---
+    // --- TOGGLES ---
     function toggleReadMore(btn) {
         const p = btn.previousElementSibling;
         if (p.classList.contains('collapsed')) {
-            p.classList.remove('collapsed');
-            btn.innerText = 'Leer menos';
+            p.classList.remove('collapsed'); btn.innerText = 'Leer menos';
         } else {
-            p.classList.add('collapsed');
-            btn.innerText = 'Leer más';
+            p.classList.add('collapsed'); btn.innerText = 'Leer más';
         }
     }
-
-    // --- TOGGLE HINTS ---
     function toggleHint(id) {
         const el = document.getElementById(id);
         el.style.display = (el.style.display === 'block') ? 'none' : 'block';
@@ -770,9 +803,7 @@
     let currentExerciseId = null;
     const backBtn = document.getElementById('back-to-exercise-btn');
 
-    function setReturnExercise(id) {
-        currentExerciseId = id;
-    }
+    function setReturnExercise(id) { currentExerciseId = id; }
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -783,35 +814,23 @@
         });
     }, { threshold: 0.2 });
 
-    document.querySelectorAll('.card').forEach(card => {
-        observer.observe(card);
-    });
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
 
     backBtn.addEventListener('click', () => {
         if (currentExerciseId) {
             const target = document.getElementById(currentExerciseId);
             target.scrollIntoView({ behavior: 'smooth' });
-            
             setTimeout(() => {
                 target.classList.add('flash');
                 setTimeout(() => target.classList.remove('flash'), 1500);
             }, 500);
-
             backBtn.style.opacity = '0';
             setTimeout(() => { backBtn.style.display = 'none'; }, 300);
-            currentExerciseId = null; // Reset so it doesn't pop up again unnecessarily
+            currentExerciseId = null;
         }
     });
 
-    // --- THEME TOGGLE ---
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        themeToggle.innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-        setupCanvases();
-    });
-
-    // --- UTILS ---
+    // --- MATH UTILS ---
     function factorial(n) { if (n === 0 || n === 1) return 1; let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; }
     function binomialCoef(n, k) { if (k < 0 || k > n) return 0; return factorial(n) / (factorial(k) * factorial(n - k)); }
     function normalPDF(x, mu, sigma) { return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2)); }
@@ -824,14 +843,8 @@
     }
 
     function getColors() {
-        const style = getComputedStyle(document.body);
         return {
-            bg: style.getPropertyValue('--bg-canvas').trim(),
-            axis: style.getPropertyValue('--axis-canvas').trim(),
-            text: style.getPropertyValue('--text-canvas').trim(),
-            discrete: style.getPropertyValue('--accent-discrete').trim(),
-            poisson: style.getPropertyValue('--accent-poisson').trim(),
-            continuous: style.getPropertyValue('--accent-continuous').trim()
+            bg: '#100904', axis: '#6c5f51', text: '#ffedd7', bar: '#dc5000', line: '#dc5000', area: 'rgba(220, 80, 0, 0.3)'
         };
     }
 
@@ -855,7 +868,7 @@
         binCtx.strokeStyle = c.axis; binCtx.beginPath(); binCtx.moveTo(padding, h - padding); binCtx.lineTo(w - padding, h - padding); binCtx.stroke();
         probs.forEach((prob, k) => {
             let barH = (prob / maxProb) * (h - padding * 2);
-            binCtx.fillStyle = c.discrete; 
+            binCtx.fillStyle = c.bar; 
             binCtx.fillRect(padding + k * barW, h - padding - barH, barW * 0.8, barH);
             if (n <= 15 || k % 5 === 0) {
                 binCtx.fillStyle = c.text; binCtx.font = '10px Inter'; binCtx.textAlign = 'center';
@@ -878,7 +891,7 @@
         poiCtx.strokeStyle = c.axis; poiCtx.beginPath(); poiCtx.moveTo(padding, h - padding); poiCtx.lineTo(w - padding, h - padding); poiCtx.stroke();
         for (let k = 0; k <= maxK; k++) {
             let prob = poissonProb(k, lambda), barH = (prob / maxProb) * (h - padding * 2);
-            poiCtx.fillStyle = c.poisson; poiCtx.fillRect(padding + k * barW, h - padding - barH, barW * 0.8, barH);
+            poiCtx.fillStyle = c.bar; poiCtx.fillRect(padding + k * barW, h - padding - barH, barW * 0.8, barH);
             if (k % 5 === 0) { poiCtx.fillStyle = c.text; poiCtx.font = '10px Inter'; poiCtx.textAlign = 'center'; poiCtx.fillText(k, padding + k * barW + (barW*0.8)/2, h - padding + 15); }
         }
     }
@@ -897,7 +910,7 @@
             let x = padding + (t / maxT) * (w - padding * 2), y = h - padding - (f / maxF) * (h - padding * 2);
             if (t === 0) expCtx.moveTo(x, y); else expCtx.lineTo(x, y);
         }
-        expCtx.strokeStyle = c.poisson; expCtx.lineWidth = 2; expCtx.stroke(); expCtx.lineWidth = 1;
+        expCtx.strokeStyle = c.line; expCtx.lineWidth = 2; expCtx.stroke(); expCtx.lineWidth = 1;
     }
 
     const norm_mu = document.getElementById('norm_mu'), norm_sigma = document.getElementById('norm_sigma'), norm_x = document.getElementById('norm_x');
@@ -917,21 +930,25 @@
         function getX(val) { return padding + ((val - minX) / (maxX - minX)) * (w - padding * 2); }
         function getY(val) { return h - padding - (val / maxY) * (h - padding * 2); }
         normCtx.strokeStyle = c.axis; normCtx.beginPath(); normCtx.moveTo(padding, h - padding); normCtx.lineTo(w - padding, h - padding); normCtx.stroke();
-        normCtx.fillStyle = c.continuous + '40';
-        if (c.continuous.length === 7) normCtx.fillStyle = c.continuous + '4D';
+        
+        normCtx.fillStyle = c.area;
         normCtx.beginPath(); normCtx.moveTo(padding, h - padding);
         for (let v = minX; v <= x_val; v += (maxX-minX)/100) { normCtx.lineTo(getX(v), getY(normalPDF(v, mu, sigma))); }
         normCtx.lineTo(getX(x_val), h - padding); normCtx.closePath(); normCtx.fill();
+        
         normCtx.beginPath();
         for (let v = minX; v <= maxX; v += (maxX-minX)/100) {
             let x = getX(v), y = getY(normalPDF(v, mu, sigma));
             if (v === minX) normCtx.moveTo(x, y); else normCtx.lineTo(x, y);
         }
-        normCtx.strokeStyle = c.continuous; normCtx.lineWidth = 2; normCtx.stroke(); normCtx.lineWidth = 1;
+        normCtx.strokeStyle = c.line; normCtx.lineWidth = 2; normCtx.stroke(); normCtx.lineWidth = 1;
+        
         normCtx.beginPath(); normCtx.moveTo(getX(x_val), h - padding); normCtx.lineTo(getX(x_val), getY(normalPDF(x_val, mu, sigma)));
-        normCtx.strokeStyle = c.discrete; normCtx.setLineDash([5, 3]); normCtx.stroke(); normCtx.setLineDash([]);
+        normCtx.strokeStyle = c.text; normCtx.setLineDash([5, 3]); normCtx.stroke(); normCtx.setLineDash([]);
+        
         let prob = normalCDF(x_val, mu, sigma);
         normProbText.innerText = `P(X ≤ ${x_val.toFixed(1)}) ≈ ${(prob * 100).toFixed(1)}%`;
+        normProbText.style.color = c.text;
     }
 
     bin_n.addEventListener('input', drawBinomial); bin_p.addEventListener('input', drawBinomial);
